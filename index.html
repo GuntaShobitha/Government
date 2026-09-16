@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="STACKLY Government Services — Simplifying Government. Empowering Citizens. Access public certificates, identity, taxes, and municipal support digitally.">
+  <title>STACKLY Government Services | Simplifying Government, Empowering Citizens</title>
+  
+  <!-- Typography & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  
+  <!-- Primary Stylesheet -->
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="page-home"> 
+
+  <!-- =========================================================================
+       HEADER / STICKY NAVBAR
+       ========================================================================= -->
+  <header class="site-header" data-header>
+    <div class="container header-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="./images/logo-dark.webp" alt="STACKLY Logo" class="nav-logo-img">
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary Navigation">
+        <a href="index.html" class="is-active">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="login.html" class="btn-login">
+          <span class="material-symbols-outlined">person</span> Login
+        </a>
+        <a href="register.html" class="btn btn-secondary btn-started">
+          Get Started <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+        <button class="menu-toggle" data-menu-toggle aria-label="Open mobile navigation menu" aria-expanded="false">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav-overlay" data-menu-overlay></div>
+  <aside class="mobile-panel" data-mobile-panel aria-label="Mobile Navigation Menu">
+    <div class="mobile-panel-header">
+      <a href="index.html" class="nav-logo">
+        <img src="./images/logo-dark.webp" alt="STACKLY Logo" class="nav-logo-img">
+      </a>
+      <button class="mobile-close-btn" data-menu-close aria-label="Close mobile menu">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="mobile-nav">
+      <a href="index.html" class="is-active">Home <span class="material-symbols-outlined">chevron_right</span></a>
+      <a href="about.html">About <span class="material-symbols-outlined">chevron_right</span></a>
+      <a href="services.html">Services <span class="material-symbols-outlined">chevron_right</span></a>
+      <a href="blog.html">Blog <span class="material-symbols-outlined">chevron_right</span></a>
+      <a href="contact.html">Contact <span class="material-symbols-outlined">chevron_right</span></a>
+    </nav>
+    <div class="mobile-panel-footer">
+      <a href="login.html" class="btn btn-outline" style="width:100%;">
+        <span class="material-symbols-outlined">person</span> Citizen Login
+      </a>
+      <a href="register.html" class="btn btn-secondary" style="width:100%;">
+        Get Started <span class="material-symbols-outlined">arrow_forward</span>
+      </a>
+    </div>
+  </aside>
+
+  <main>
+    <!-- =========================================================================
+         SECTION 1: HERO — DIGITAL GOVERNMENT
+         ========================================================================= -->
+    <section class="hero" id="hero">
+      <div class="hero-backdrop-glow"></div>
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <p class="eyebrow reveal">Digital Public Administration</p>
+            <h1 class="display-title reveal delay-1">
+              Simplifying Government.<br>
+              <em>Empowering Citizens.</em>
+            </h1>
+            <p class="hero-copy reveal delay-2">
+              Experience the next generation of public administration. Apply for verified civil credentials, manage business permits, file civic revenue, and track requests through one unified, secure digital platform.
+            </p>
+            <div class="hero-actions reveal delay-3">
+              <a href="services.html" class="btn btn-secondary">
+                Explore Services <span class="material-symbols-outlined">arrow_forward</span>
+              </a>
+              <a href="register.html" class="btn btn-outline-light">
+                Get Started <span class="material-symbols-outlined">how_to_reg</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-visual-wrap reveal-right delay-2">
+            <div class="hero-image-card">
+              <img src="./images/hero-government.webp" alt="STACKLY Central Government Digital Headquarters" width="800" height="576" loading="lazy">
+            </div>
+
+            <!-- Floating Interface Cards -->
+            <div class="hero-float-card hero-float-card-1" data-float-depth="15">
+              <div class="float-icon-box">
+                <span class="material-symbols-outlined">verified</span>
+              </div>
+              <div class="float-text">
+                <strong>Digital Identity</strong>
+                <small>Tier-4 Verified Citizen</small>
+              </div>
+            </div>
+
+            <div class="hero-float-card hero-float-card-2" data-float-depth="25">
+              <div class="float-icon-box">
+                <span class="material-symbols-outlined">speed</span>
+              </div>
+              <div class="float-text">
+                <strong>60s Issuance</strong>
+                <small>Automated Certificate Delivery</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 2: DIGITAL SERVICES SEARCH
+         ========================================================================= -->
+    <section class="service-search-section" id="service-search-sec">
+      <div class="container">
+        <div class="search-panel-box reveal">
+          <div style="text-align: center; max-width: 680px; margin: 0 auto 2rem auto;">
+            <p class="eyebrow">Smart Services Directory</p>
+            <h2 class="section-title">Find What You <em>Need Faster.</em></h2>
+            <p class="lead-text" style="margin-top: 0.5rem;">Instant access to verified civic documentation, applications, and department portals.</p>
+          </div>
+
+          <div class="search-input-wrap">
+            <span class="material-symbols-outlined">search</span>
+            <input type="text" id="service-search" placeholder="Search by service name, document title, or department..." autocomplete="off">
+            <button class="btn btn-primary" style="padding: 0.5rem 1.25rem; font-size: 0.875rem;">
+              Search <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+          </div>
+          <p style="font-size: 0.8125rem; color: var(--primary-70); margin-top: 0.75rem; text-align: right;" data-service-count>Showing all 8 core categories</p>
+        </div>
+
+        <!-- 8 Search Categories -->
+        <div class="categories-grid reveal delay-1">
+          <button class="category-pill is-active" data-service-category="all">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="cat-label">All Services</span>
+          </button>
+          <button class="category-pill" data-service-category="identity">
+            <span class="material-symbols-outlined">badge</span>
+            <span class="cat-label">Identity</span>
+          </button>
+          <button class="category-pill" data-service-category="certificates">
+            <span class="material-symbols-outlined">description</span>
+            <span class="cat-label">Certificates</span>
+          </button>
+          <button class="category-pill" data-service-category="education">
+            <span class="material-symbols-outlined">school</span>
+            <span class="cat-label">Education</span>
+          </button>
+          <button class="category-pill" data-service-category="employment">
+            <span class="material-symbols-outlined">work</span>
+            <span class="cat-label">Employment</span>
+          </button>
+          <button class="category-pill" data-service-category="transport">
+            <span class="material-symbols-outlined">directions_car</span>
+            <span class="cat-label">Transport</span>
+          </button>
+          <button class="category-pill" data-service-category="healthcare">
+            <span class="material-symbols-outlined">local_hospital</span>
+            <span class="cat-label">Healthcare</span>
+          </button>
+          <button class="category-pill" data-service-category="tax">
+            <span class="material-symbols-outlined">payments</span>
+            <span class="cat-label">Tax</span>
+          </button>
+          <button class="category-pill" data-service-category="welfare">
+            <span class="material-symbols-outlined">volunteer_activism</span>
+            <span class="cat-label">Welfare</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 3: GOVERNMENT SERVICES (8 Core Service Cards)
+         ========================================================================= -->
+    <section class="services-section" id="core-services">
+      <div class="container">
+        <div class="section-head-wrap">
+          <div>
+            <p class="eyebrow reveal">Civic Directory</p>
+            <h2 class="section-title reveal delay-1">Core Government <em>Services</em></h2>
+          </div>
+          <a href="services.html" class="btn-icon-link reveal">
+            View full catalog <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+        </div>
+
+        <div class="services-grid-8">
+          <!-- 1. Citizen Services -->
+          <div class="service-card-3d reveal" data-tilt data-service-card data-category="citizen">
+            <div>
+              <div class="service-card-icon">
+                <span class="material-symbols-outlined">groups</span>
+              </div>
+              <h3>Citizen Services</h3>
+              <p>Comprehensive public registry access, family status updates, voting registration, and community outreach assistance.</p>
+            </div>
+            <a href="services.html#citizen" class="btn-icon-link">Learn More <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+
+          <!-- 2. Digital Certificates -->
+          <div class="service-card-3d reveal delay-1" data-tilt data-service-card data-category="certificates">
+            <div>
+              <div class="service-card-icon">
+                <span class="material-symbols-outlined">verified</span>
+              </div>
+              <h3>Digital Certificates</h3>
+              <p>Instant official certification for birth, marriage, residency, and verified police clearance records with QR validation.</p>
+            </div>
+            <a href="services.html#certificates" class="btn-icon-link">Learn More <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+
+          <!-- 3. Identity Services -->
+          <div class="service-card-3d reveal delay-2" data-tilt data-service-card data-category="identity">
+            <div>
+              <div class="service-card-icon">
+                <span class="material-symbols-outlined">fingerprint</span>
+              </div>
+              <h3>Identity Services</h3>
+              <p>Secure national biometric authentication, smart citizen card renewal, digital signature keys, and child registries.</p>
+            </div>
+            <a href="services.html#identity" class="btn-icon-link">Learn More <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+
+          <!-- 4. Tax Services -->
+          <div class="service-card-3d reveal delay-3" data-tilt data-service-card data-category="tax">
+            <div>
+              <div class="service-card-icon">
+                <span class="material-symbols-outlined">account_balance</span>
+              </div>
+              <h3>Tax Services</h3>
+              <p>Property tax assessment, municipal levy declarations, instant online duty payments, and automated clearance statements.</p>
+            </div>
+            <a href="services.html#tax" class="btn-icon-link">Learn More <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+
+          <!-- 5. Education Services -->
+          <div class="service-card-3d reveal" data-tilt data-service-card data-category="education">
+            <div>
+              <div class="service-card-icon">
+                <span class="material-symbols-outlined">school</span>
+              </div>
+              <h3>Education Services</h3>
+              <p>Public school enrollment, university scholarship matching, authenticated academic transcript verification, and student aid.</p>
+            </div>
+            <a href="services.html#education" class="btn-icon-link">Learn More <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+
+          <!-- 6. Employment Services -->
+          <div class="service-card-3d reveal delay-1" data-tilt data-service-card data-category="employment">
+            <div>
+              <div class="service-card-icon">
+                <span class="material-symbols-outlined">work</span>
+              </div>
+              <h3>Employment Services</h3>
+              <p>Civil service career board, accredited vocational training programs, labor rights mediation, and workforce support claims.</p>
+            </div>
+            <a href="services.html#employment" class="btn-icon-link">Learn More <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+
+          <!-- 7. Transport Services -->
+          <div class="service-card-3d reveal delay-2" data-tilt data-service-card data-category="transport">
+            <div>
+              <div class="service-card-icon">
+                <span class="material-symbols-outlined">directions_car</span>
+              </div>
+              <h3>Transport Services</h3>
+              <p>Driver licensing, vehicle registration renewal, digital public transit passes, and smart commercial fleet compliance.</p>
+            </div>
+            <a href="services.html#transport" class="btn-icon-link">Learn More <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+
+          <!-- 8. Welfare Services -->
+          <div class="service-card-3d reveal delay-3" data-tilt data-service-card data-category="welfare">
+            <div>
+              <div class="service-card-icon">
+                <span class="material-symbols-outlined">volunteer_activism</span>
+              </div>
+              <h3>Welfare Services</h3>
+              <p>Family support allowances, senior citizen welfare, disability assistance schemes, and accessible community housing subsidies.</p>
+            </div>
+            <a href="services.html#welfare" class="btn-icon-link">Learn More <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 4: HOW DIGITAL GOVERNMENT WORKS
+         ========================================================================= -->
+    <section class="process-section" id="how-it-works">
+      <div class="container">
+        <div style="text-align: center; max-width: 680px; margin: 0 auto;">
+          <p class="eyebrow" style="color: var(--secondary);">The Citizen Journey</p>
+          <h2 class="section-title" style="color:#FFFFFF;">How Digital Government <em>Works</em></h2>
+          <p class="lead-text" style="color: var(--accent-80); margin-top: 0.75rem;">From initial inquiry to confirmed service delivery in 5 clear, accountable stages.</p>
+        </div>
+
+        <div class="process-steps-wrap">
+          <div class="process-line-bg"></div>
+          <div class="process-line-fill" data-process-progress></div>
+
+          <div class="process-steps-grid">
+            <!-- Step 1 -->
+            <div class="process-step-node is-active" data-process-step="1">
+              <div class="node-number">
+                <span class="material-symbols-outlined">edit_document</span>
+              </div>
+              <h4>1. Apply</h4>
+              <p>Submit your verified request using your digital identity profile in minutes.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="process-step-node" data-process-step="2">
+              <div class="node-number">
+                <span class="material-symbols-outlined">verified</span>
+              </div>
+              <h4>2. Verify</h4>
+              <p>Automated cryptographic validation matches registry records in real time.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="process-step-node" data-process-step="3">
+              <div class="node-number">
+                <span class="material-symbols-outlined">sync</span>
+              </div>
+              <h4>3. Process</h4>
+              <p>Inter-departmental routing guarantees rapid assessment and SLA adherence.</p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="process-step-node" data-process-step="4">
+              <div class="node-number">
+                <span class="material-symbols-outlined">fact_check</span>
+              </div>
+              <h4>4. Approve</h4>
+              <p>Authorized civic officers sign off using verifiable digital governance stamps.</p>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="process-step-node" data-process-step="5">
+              <div class="node-number">
+                <span class="material-symbols-outlined">mark_email_read</span>
+              </div>
+              <h4>5. Receive</h4>
+              <p>Download signed tamper-proof credentials directly to your citizen wallet.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 5: FEATURED DIGITAL SERVICES (4 Large Feature Cards)
+         ========================================================================= -->
+    <section class="featured-services-section" id="featured-services">
+      <div class="container">
+        <div class="section-head-wrap">
+          <div>
+            <p class="eyebrow reveal">Next-Gen Delivery</p>
+            <h2 class="section-title reveal delay-1">Featured Digital <em>Services</em></h2>
+          </div>
+          <p class="lead-text reveal" style="max-width: 440px;">State-of-the-art self-service portals eliminating physical queues and paperwork permanently.</p>
+        </div>
+
+        <div class="featured-grid-4">
+          <!-- Card 1: Digital Identity -->
+          <div class="feature-service-card reveal">
+            <div class="feature-card-media">
+              <img src="./images/feature-identity.webp" alt="National Digital Identity Terminal" width="700" height="525" loading="lazy">
+              <span class="feature-card-badge">Instant Verification</span>
+            </div>
+            <div class="feature-card-body">
+              <div>
+                <h3>Unified National Digital ID</h3>
+                <p>One cryptographic credential granting instant, authenticated access to over 150 government, healthcare, and educational portals securely.</p>
+              </div>
+              <a href="services.html#identity" class="btn btn-primary" style="align-self: flex-start;">
+                Access Identity Portal <span class="material-symbols-outlined">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: Certificates -->
+          <div class="feature-service-card reveal delay-1">
+            <div class="feature-card-media">
+              <img src="./images/feature-certificates.webp" alt="Automated Official Public Records" width="700" height="466" loading="lazy">
+              <span class="feature-card-badge">Paperless Records</span>
+            </div>
+            <div class="feature-card-body">
+              <div>
+                <h3>Certified Civil Records Registry</h3>
+                <p>Request, authenticate, and download legally binding birth, marriage, and probate certificates with embedded tamper-proof verification hashes.</p>
+              </div>
+              <a href="services.html#certificates" class="btn btn-primary" style="align-self: flex-start;">
+                Order Certificates <span class="material-symbols-outlined">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: Online Applications -->
+          <div class="feature-service-card reveal delay-2">
+            <div class="feature-card-media">
+              <img src="./images/feature-applications.webp" alt="Smart City Administration Applications" width="700" height="467" loading="lazy">
+              <span class="feature-card-badge">Real-Time Tracking</span>
+            </div>
+            <div class="feature-card-body">
+              <div>
+                <h3>Integrated Business Licensing</h3>
+                <p>Establish a legal municipal enterprise in under 24 hours. Automated clearances across zoning, revenue, and health departments simultaneously.</p>
+              </div>
+              <a href="services.html#employment" class="btn btn-primary" style="align-self: flex-start;">
+                Apply for License <span class="material-symbols-outlined">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 4: Document Verification -->
+          <div class="feature-service-card reveal delay-3">
+            <div class="feature-card-media">
+              <img src="./images/feature-verification.webp" alt="Public Cryptographic Verification" width="700" height="525" loading="lazy">
+              <span class="feature-card-badge">Zero-Trust Security</span>
+            </div>
+            <div class="feature-card-body">
+              <div>
+                <h3>Official Document Verification</h3>
+                <p>Public-facing validation terminal allowing banks, employers, and civic bodies to verify authenticity of any issued document instantly.</p>
+              </div>
+              <a href="services.html#support" class="btn btn-primary" style="align-self: flex-start;">
+                Verify a Document <span class="material-symbols-outlined">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 6: GOVERNMENT DEPARTMENTS (6 Department Showcase)
+         ========================================================================= -->
+    <section class="departments-section" id="departments">
+      <div class="container">
+        <div class="section-head-wrap">
+          <div>
+            <p class="eyebrow reveal">Civic Administration</p>
+            <h2 class="section-title reveal delay-1">Government <em>Departments</em></h2>
+          </div>
+          <p class="lead-text reveal" style="max-width: 440px;">Connecting you directly with specialized administration teams, leadership, and public desks.</p>
+        </div>
+
+        <div class="departments-grid-6">
+          <!-- 1. Revenue -->
+          <div class="department-card reveal">
+            <div class="dept-header">
+              <div class="dept-icon">
+                <span class="material-symbols-outlined">account_balance_wallet</span>
+              </div>
+              <span class="dept-number">01</span>
+            </div>
+            <h3>Department of Revenue &amp; Treasury</h3>
+            <p>Fiscal stewardship, municipal property valuations, electronic taxation, budget transparency, and citizen payment gateways.</p>
+            <a href="services.html#tax" class="btn-icon-link">Department Services <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+
+          <!-- 2. Education -->
+          <div class="department-card reveal delay-1">
+            <div class="dept-header">
+              <div class="dept-icon">
+                <span class="material-symbols-outlined">menu_book</span>
+              </div>
+              <span class="dept-number">02</span>
+            </div>
+            <h3>Department of Education &amp; Skills</h3>
+            <p>Administering public school systems, early childhood learning, academic standards, higher education grants, and literacy.</p>
+            <a href="services.html#education" class="btn-icon-link">Department Services <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+
+          <!-- 3. Transport -->
+          <div class="department-card reveal delay-2">
+            <div class="dept-header">
+              <div class="dept-icon">
+                <span class="material-symbols-outlined">traffic</span>
+              </div>
+              <span class="dept-number">03</span>
+            </div>
+            <h3>Department of Transport &amp; Mobility</h3>
+            <p>Smart transit management, road safety infrastructure, public transit electrification, and driver credential compliance.</p>
+            <a href="services.html#transport" class="btn-icon-link">Department Services <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+
+          <!-- 4. Health -->
+          <div class="department-card reveal">
+            <div class="dept-header">
+              <div class="dept-icon">
+                <span class="material-symbols-outlined">medical_services</span>
+              </div>
+              <span class="dept-number">04</span>
+            </div>
+            <h3>Department of Health &amp; Community Care</h3>
+            <p>Preventative wellness, community health clinics, emergency medical logistics, and public hygiene surveillance.</p>
+            <a href="services.html#citizen" class="btn-icon-link">Department Services <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+
+          <!-- 5. Municipal Services -->
+          <div class="department-card reveal delay-1">
+            <div class="dept-header">
+              <div class="dept-icon">
+                <span class="material-symbols-outlined">apartment</span>
+              </div>
+              <span class="dept-number">05</span>
+            </div>
+            <h3>Department of Municipal Services</h3>
+            <p>Zoning approvals, public works, sanitation management, civic water utilities, and green urban architectural planning.</p>
+            <a href="services.html#citizen" class="btn-icon-link">Department Services <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+
+          <!-- 6. Social Welfare -->
+          <div class="department-card reveal delay-2">
+            <div class="dept-header">
+              <div class="dept-icon">
+                <span class="material-symbols-outlined">shield_person</span>
+              </div>
+              <span class="dept-number">06</span>
+            </div>
+            <h3>Department of Social Welfare</h3>
+            <p>Community resilience, vulnerable citizen advocacy, family support programs, disability access, and housing support.</p>
+            <a href="services.html#welfare" class="btn-icon-link">Department Services <span class="material-symbols-outlined">arrow_forward</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 7: CITIZEN BENEFITS
+         ========================================================================= -->
+    <section class="benefits-section" id="benefits">
+      <div class="container">
+        <div style="text-align: center; max-width: 680px; margin: 0 auto 3.5rem auto;">
+          <p class="eyebrow reveal">Civic Value Proposition</p>
+          <h2 class="section-title reveal delay-1">Citizen Benefits of <em>Modern Governance</em></h2>
+          <p class="lead-text reveal delay-2">Engineered from the ground up to protect your time, safeguard your data, and simplify public life.</p>
+        </div>
+
+        <div class="benefits-grid-6">
+          <!-- 1. Faster Services -->
+          <div class="benefit-card reveal">
+            <div class="benefit-icon">
+              <span class="material-symbols-outlined">bolt</span>
+            </div>
+            <h3>Faster Services</h3>
+            <p>Automated algorithmic processing cuts turnaround from 14 business days to under 60 seconds for verified digital certificates.</p>
+          </div>
+
+          <!-- 2. Transparent Processes -->
+          <div class="benefit-card reveal delay-1">
+            <div class="benefit-icon">
+              <span class="material-symbols-outlined">visibility</span>
+            </div>
+            <h3>Transparent Processes</h3>
+            <p>Every milestone of your application is tracked live with complete audit timestamps and responsible department logs.</p>
+          </div>
+
+          <!-- 3. Secure Data -->
+          <div class="benefit-card reveal delay-2">
+            <div class="benefit-icon">
+              <span class="material-symbols-outlined">encrypted</span>
+            </div>
+            <h3>Secure Data</h3>
+            <p>Encrypted using government-grade 256-bit cryptography and decentralized zero-knowledge proofs to guard citizen privacy.</p>
+          </div>
+
+          <!-- 4. Easy Access -->
+          <div class="benefit-card reveal">
+            <div class="benefit-icon">
+              <span class="material-symbols-outlined">devices</span>
+            </div>
+            <h3>Easy Access</h3>
+            <p>Fully compliant with universal accessibility standards, responsive on any mobile device, and optimized for low bandwidth.</p>
+          </div>
+
+          <!-- 5. Reduced Paperwork -->
+          <div class="benefit-card reveal delay-1">
+            <div class="benefit-icon">
+              <span class="material-symbols-outlined">eco</span>
+            </div>
+            <h3>Reduced Paperwork</h3>
+            <p>100% digital workflows save an estimated 12 million sheets of paper each year while eliminating physical couriers.</p>
+          </div>
+
+          <!-- 6. 24/7 Availability -->
+          <div class="benefit-card reveal delay-2">
+            <div class="benefit-icon">
+              <span class="material-symbols-outlined">schedule</span>
+            </div>
+            <h3>24/7 Availability</h3>
+            <p>Government that never sleeps. Apply for licenses, make tax payments, and file grievances at your convenience day or night.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 8: SMART GOVERNMENT STATISTICS
+         ========================================================================= -->
+    <section class="statistics-section" id="statistics">
+      <div class="container">
+        <div class="stats-grid-4">
+          <!-- Stat 1 -->
+          <div class="stat-box reveal">
+            <span class="stat-value" data-counter="500" data-suffix="+">0</span>
+            <span class="stat-label">Government Services</span>
+          </div>
+
+          <!-- Stat 2 -->
+          <div class="stat-box reveal delay-1">
+            <span class="stat-value" data-counter="120" data-suffix="+">0</span>
+            <span class="stat-label">Public Departments</span>
+          </div>
+
+          <!-- Stat 3 -->
+          <div class="stat-box reveal delay-2">
+            <span class="stat-value" data-counter="2" data-suffix="M+">0</span>
+            <span class="stat-label">Citizens Served</span>
+          </div>
+
+          <!-- Stat 4 -->
+          <div class="stat-box reveal delay-3">
+            <span class="stat-value" data-counter="99.9" data-suffix="%">0</span>
+            <span class="stat-label">Platform Availability</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 9: SECURITY & TRUST
+         ========================================================================= -->
+    <section class="security-section" id="security-trust">
+      <div class="container">
+        <div style="text-align: center; max-width: 720px; margin: 0 auto;">
+          <p class="eyebrow reveal">Cryptographic Assurance</p>
+          <h2 class="section-title reveal delay-1">Security &amp; <em>Trust Architecture</em></h2>
+          <p class="lead-text reveal delay-2">Our zero-trust digital infrastructure ensures citizen data remains confidential, immutable, and strictly under citizen control.</p>
+        </div>
+
+        <div class="security-flow-wrap">
+          <!-- Step 1: Citizen -->
+          <div class="security-step-card reveal">
+            <div class="security-icon">
+              <span class="material-symbols-outlined">person</span>
+            </div>
+            <h4>Citizen Authenticated</h4>
+            <p>Multi-factor biometric handshake ensures that only verified individuals can request sensitive records.</p>
+          </div>
+
+          <!-- Step 2: Identity -->
+          <div class="security-step-card reveal delay-1">
+            <div class="security-icon">
+              <span class="material-symbols-outlined">fingerprint</span>
+            </div>
+            <h4>Identity Shield</h4>
+            <p>Zero-knowledge cryptographic tokens verify eligibility without exposing raw personal documents.</p>
+          </div>
+
+          <!-- Step 3: Verification -->
+          <div class="security-step-card reveal delay-2">
+            <div class="security-icon">
+              <span class="material-symbols-outlined">verified_user</span>
+            </div>
+            <h4>Registry Verification</h4>
+            <p>Automated ledger matching checks against official civic registries with instant audit tracking.</p>
+          </div>
+
+          <!-- Step 4: Secure Service -->
+          <div class="security-step-card reveal delay-3">
+            <div class="security-icon">
+              <span class="material-symbols-outlined">lock</span>
+            </div>
+            <h4>Secure Service Delivery</h4>
+            <p>Encrypted credentials delivered straight to your secure device with tamper-evident digital signatures.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 10: CITIZEN STORIES / TESTIMONIALS
+         ========================================================================= -->
+    <section class="testimonials-section" id="testimonials">
+      <div class="container">
+        <div style="text-align: center; max-width: 680px; margin: 0 auto;">
+          <p class="eyebrow reveal">Real Public Impact</p>
+          <h2 class="section-title reveal delay-1">Citizen Stories &amp; <em>Experiences</em></h2>
+          <p class="lead-text reveal delay-2">Discover how STACKLY Government transforms everyday interactions for residents and local businesses.</p>
+        </div>
+
+        <div class="carousel-outer" data-carousel>
+          <div class="carousel-track" data-carousel-track>
+            <!-- Slide 1 -->
+            <div class="testimonial-slide is-active" data-carousel-card>
+              <div class="testimonial-card-inner">
+                <img src="./images/citizen-1.webp" alt="Citizen Sarah Jenkins" class="citizen-avatar" width="80" height="80" loading="lazy">
+                <p class="testimonial-quote">
+                  “Renewing our municipal retail licenses used to require an entire day off work standing in administrative lines. With STACKLY, my permit arrived in my digital wallet before my morning coffee was finished.”
+                </p>
+                <div class="citizen-meta">
+                  <strong>Sarah Jenkins</strong>
+                  <small>Commercial Permit Renewal · Retail Proprietor</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="testimonial-slide" data-carousel-card>
+              <div class="testimonial-card-inner">
+                <img src="./images/citizen-2.webp" alt="Citizen Marcus Vance" class="citizen-avatar" width="80" height="80" loading="lazy">
+                <p class="testimonial-quote">
+                  “When our daughter was born, registering her birth and ordering official certified records was completely painless. The real-time status notifications gave our family total peace of mind.”
+                </p>
+                <div class="citizen-meta">
+                  <strong>Marcus Vance</strong>
+                  <small>Digital Birth Certificate · New Parent</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="testimonial-slide" data-carousel-card>
+              <div class="testimonial-card-inner">
+                <img src="./images/citizen-3.webp" alt="Citizen Elena Rostova" class="citizen-avatar" width="80" height="80" loading="lazy">
+                <p class="testimonial-quote">
+                  “As a legal advisor, the official document verification feature has transformed our workflow. Being able to confirm a client’s certified government records in real time has cut days off our cases.”
+                </p>
+                <div class="citizen-meta">
+                  <strong>Elena Rostova</strong>
+                  <small>Document Verification Service · Legal Counselor</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="testimonial-slide" data-carousel-card>
+              <div class="testimonial-card-inner">
+                <img src="./images/citizen-4.webp" alt="Citizen David Thorne" class="citizen-avatar" width="80" height="80" loading="lazy">
+                <p class="testimonial-quote">
+                  “Paying annual property taxes used to be confusing with outdated paperwork. The clear breakdown and instant payment receipt through STACKLY makes civic responsibility straightforward.”
+                </p>
+                <div class="citizen-meta">
+                  <strong>David Thorne</strong>
+                  <small>Municipal Property Tax · Homeowner</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-controls">
+            <button class="carousel-btn" data-carousel-prev aria-label="Previous citizen story">
+              <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <div class="carousel-dots" data-carousel-dots></div>
+            <button class="carousel-btn" data-carousel-next aria-label="Next citizen story">
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 11: FINAL CTA
+         ========================================================================= -->
+    <section class="final-cta-section" id="cta">
+      <div class="container">
+        <div class="final-cta-inner">
+          <p class="eyebrow" style="color: var(--secondary);">Unified Public Platform</p>
+          <h2 class="display-title reveal">
+            Government Services, <em>Simplified for Everyone.</em>
+          </h2>
+          <p class="reveal delay-1">
+            Join over 2 million citizens experiencing effortless public administration today. Open your citizen portal account in under 60 seconds.
+          </p>
+          <div class="final-cta-actions reveal delay-2">
+            <a href="services.html" class="btn btn-secondary">
+              Explore Services <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+            <a href="contact.html" class="btn btn-outline-light">
+              Contact Us <span class="material-symbols-outlined">mail</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <a href="index.html" class="nav-logo">
+            <img src="./images/logo-dark.webp" alt="STACKLY Logo" class="nav-logo-img">
+          </a>
+          <p>
+            STACKLY Government Services connects citizens, businesses, and public institutions through a secure, transparent, and accessible digital platform.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About STACKLY</a></li>
+            <li><a href="services.html">Services Directory</a></li>
+            <li><a href="blog.html">Public News &amp; Ideas</a></li>
+            <li><a href="contact.html">Contact Government</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Citizen Services</h4>
+          <ul>
+            <li><a href="services.html#certificates">Vital Certificates</a></li>
+            <li><a href="services.html#identity">Digital Identity</a></li>
+            <li><a href="services.html#tax">Tax &amp; Revenue</a></li>
+            <li><a href="services.html#employment">Business Licenses</a></li>
+            <li><a href="services.html#welfare">Welfare Programs</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Portals &amp; Support</h4>
+          <ul>
+            <li><a href="login.html">Citizen Portal Login</a></li>
+            <li><a href="login.html">Admin Portal Sign-In</a></li>
+            <li><a href="register.html">Register Account</a></li>
+            <li><a href="contact.html#faq">Accessibility &amp; FAQ</a></li>
+            <li><a href="404.html">Security &amp; Compliance</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 STACKLY Government Services. All rights reserved.</span>
+        
+        <div class="footer-social-links">
+          <a href="404.html" class="social-icon-btn" aria-label="Official Twitter portal">
+            <span class="material-symbols-outlined">public</span>
+          </a>
+          <a href="404.html" class="social-icon-btn" aria-label="Official Communications channel">
+            <span class="material-symbols-outlined">share</span>
+          </a>
+          <a href="404.html" class="social-icon-btn" aria-label="Official Video broadcast channel">
+            <span class="material-symbols-outlined">videocam</span>
+          </a>
+          <a href="404.html" class="social-icon-btn" aria-label="Official RSS newsfeed">
+            <span class="material-symbols-outlined">rss_feed</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back To Top Button -->
+  <button class="back-to-top" data-back-top aria-label="Back to top of page">
+    <span class="material-symbols-outlined">arrow_upward</span>
+  </button>
+
+  <!-- Application Scripts -->
+  <script src="./js/main.js" defer></script>
+</body>
+</html>

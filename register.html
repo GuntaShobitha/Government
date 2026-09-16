@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Register for an official STACKLY Government Services citizen or staff account.">
+  <title>Create Account | STACKLY Government Services</title>
+  
+  <!-- Typography & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  
+  <!-- Primary Stylesheet -->
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+  <div class="auth-page">
+    <!-- Left Banner Side -->
+    <div class="auth-banner-side">
+      <div class="auth-banner-glow"></div>
+      
+      <div>
+        <a href="index.html" class="nav-logo">
+          <img src="./images/logo-dark.webp" alt="STACKLY Logo" class="nav-logo-img">
+        </a>
+      </div>
+
+      <div style="position: relative; z-index: 2; margin: 4rem 0;">
+        <p class="eyebrow" style="color: var(--secondary);">Citizen Registration</p>
+        <h1 class="display-title" style="color: #FFFFFF; font-size: clamp(2.25rem, 4vw, 3.25rem); line-height: 1.15; margin-bottom: 1.25rem;">
+          Join Over 2 Million <em>Verified Residents.</em>
+        </h1>
+        <p style="color: var(--accent-80); font-size: 1.125rem; line-height: 1.6; max-width: 480px;">
+          Set up your digital government profile in under 60 seconds to access permits, certificates, and welfare applications with end-to-end encryption.
+        </p>
+      </div>
+
+      <div style="position: relative; z-index: 2; display: flex; align-items: center; gap: 1rem; color: var(--accent-80); font-size: 0.875rem;">
+        <span class="material-symbols-outlined" style="color: var(--secondary);">shield</span>
+        <span>Strict privacy standards · Zero data monetization guarantee</span>
+      </div>
+    </div>
+
+    <!-- Right Form Side -->
+    <div class="auth-form-side">
+      <div class="auth-header-top">
+        <a href="index.html" class="nav-logo">
+          <img src="./images/logo-dark.webp" alt="STACKLY Logo" class="nav-logo-img">
+        </a>
+        <a href="index.html" class="btn-icon-link">
+          <span class="material-symbols-outlined">arrow_back</span> Back to Home
+        </a>
+      </div>
+
+      <div class="auth-title-block">
+        <p class="eyebrow">Citizen Registration</p>
+        <h2 class="section-title">Create Your <em>Account</em></h2>
+        <p style="color: var(--primary-70); margin-top: 0.5rem;">Enter your legal details to register your digital citizen credential profile.</p>
+      </div>
+
+      <form data-register-form novalidate>
+        <!-- Role Selection -->
+        <div class="form-group">
+          <label class="form-label" for="reg-role">Account Role *</label>
+          <select id="reg-role" name="role" class="form-control" required>
+            <option value="User">User (Citizen)</option>
+            <option value="Admin">Admin (Administrator)</option>
+          </select>
+          <span class="field-error" data-error="role"></span>
+        </div>
+
+        <!-- Name Field -->
+        <div class="form-group">
+          <label class="form-label" for="reg-name">Full Legal Name *</label>
+          <input type="text" id="reg-name" name="name" class="form-control" placeholder="Alex Mercer" required autocomplete="name">
+          <span class="field-error" data-error="name"></span>
+        </div>
+
+        <!-- Email Field (Exact email preserved) -->
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Official Email Address *</label>
+          <input type="email" id="reg-email" name="email" class="form-control" placeholder="citizen@gmail.com" required autocomplete="email">
+          <span class="field-error" data-error="email"></span>
+        </div>
+
+        <!-- Phone Field -->
+        <div class="form-group">
+          <label class="form-label" for="reg-phone">Phone Number *</label>
+          <input type="tel" id="reg-phone" name="phone" class="form-control" placeholder="+1 (800) 555-0192" required autocomplete="tel">
+          <span class="field-error" data-error="phone"></span>
+        </div>
+
+        <!-- Password Field with Visibility Toggle -->
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Password (Minimum 6 Characters) *</label>
+          <div class="password-field">
+            <input type="password" id="reg-password" name="password" class="form-control" placeholder="••••••••" required autocomplete="new-password">
+            <button type="button" class="password-toggle-btn" data-password-toggle data-target="reg-password" aria-label="Show password">
+              <span class="material-symbols-outlined">visibility</span>
+            </button>
+          </div>
+          <span class="field-error" data-error="password"></span>
+        </div>
+
+        <!-- Confirm Password Field with Visibility Toggle -->
+        <div class="form-group">
+          <label class="form-label" for="reg-confirm">Confirm Password *</label>
+          <div class="password-field">
+            <input type="password" id="reg-confirm" name="confirm_password" class="form-control" placeholder="••••••••" required autocomplete="new-password">
+            <button type="button" class="password-toggle-btn" data-password-toggle data-target="reg-confirm" aria-label="Show confirm password">
+              <span class="material-symbols-outlined">visibility</span>
+            </button>
+          </div>
+          <span class="field-error" data-error="confirm_password"></span>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; margin-top: 0.5rem;">
+          Create Account <span class="material-symbols-outlined">how_to_reg</span>
+        </button>
+
+        <div data-form-message></div>
+
+        <!-- Login Link -->
+        <p style="text-align: center; margin-top: 2rem; color: var(--primary-70); font-size: 0.9375rem;">
+          Already have an official account? 
+          <a href="login.html" style="font-weight: 700; color: var(--secondary-dark); border-bottom: 1.5px solid var(--secondary);">
+            Sign in here
+          </a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Application Auth Scripts -->
+  <script src="./js/auth.js" defer></script>
+</body>
+</html>

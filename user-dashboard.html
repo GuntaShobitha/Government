@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Official STACKLY Citizen Portal Dashboard — Manage applications, credentials, tax filings, and service requests.">
+  <title>Citizen Portal | STACKLY Government Services</title>
+  
+  <!-- Typography & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  
+  <!-- Primary Stylesheet -->
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="dashboard-page user-page">
+
+  <div class="dashboard-layout">
+    <!-- Sidebar Overlay for Mobile -->
+    <div class="mobile-nav-overlay" data-sidebar-overlay></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="dashboard-sidebar" data-dashboard-sidebar aria-label="Citizen Sidebar Navigation">
+      <div class="sidebar-brand-wrap">
+        <a href="index.html" class="nav-logo">
+          <img src="./images/logo-dark.webp" alt="STACKLY Logo" class="nav-logo-img">
+        </a>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="#overview" class="is-active" data-dash-nav="overview">
+          <span class="material-symbols-outlined">dashboard</span>
+          <span>Dashboard</span>
+        </a>
+        <a href="#applications" data-dash-nav="applications">
+          <span class="material-symbols-outlined">description</span>
+          <span>My Applications</span>
+        </a>
+        <a href="#services" data-dash-nav="services">
+          <span class="material-symbols-outlined">apps</span>
+          <span>Government Services</span>
+        </a>
+        <a href="#documents" data-dash-nav="documents">
+          <span class="material-symbols-outlined">folder_shared</span>
+          <span>Documents</span>
+        </a>
+        <a href="#status" data-dash-nav="status">
+          <span class="material-symbols-outlined">timeline</span>
+          <span>Applications Status</span>
+        </a>
+        <a href="#notifications" data-dash-nav="notifications">
+          <span class="material-symbols-outlined">notifications</span>
+          <span>Notifications</span>
+        </a>
+        <a href="#profile" data-dash-nav="profile">
+          <span class="material-symbols-outlined">person</span>
+          <span>Profile</span>
+        </a>
+        <a href="#settings" data-dash-nav="settings">
+          <span class="material-symbols-outlined">settings</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user-chip">
+          <div class="user-chip-avatar">
+            <span class="material-symbols-outlined">account_circle</span>
+          </div>
+          <div class="user-chip-info">
+            <strong data-user-name>Citizen Alex Mercer</strong>
+            <!-- Exact email address preserved (e.g. citizen@gmail.com) -->
+            <small data-user-email>citizen@gmail.com</small>
+          </div>
+        </div>
+
+        <button class="btn-sidebar-logout" data-logout aria-label="Log out of citizen portal">
+          <span class="material-symbols-outlined">logout</span> Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Viewport -->
+    <div class="dashboard-main-area">
+      <!-- Top Bar -->
+      <header class="dashboard-topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="menu-toggle" data-dashboard-menu aria-label="Toggle sidebar menu">
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+          <div class="topbar-search">
+            <span class="material-symbols-outlined" style="font-size: 20px; color: var(--primary-70);">search</span>
+            <input type="text" placeholder="Search applications, records, services..." data-table-search="main-apps-table">
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="topbar-icon-btn" aria-label="Notifications" onclick="document.querySelector('[data-dash-nav=\'notifications\']').click();">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="unread-badge"></span>
+          </button>
+
+          <div class="topbar-profile-chip">
+            <div class="user-chip-avatar" style="width: 36px; height: 36px;">
+              <span class="material-symbols-outlined" style="font-size: 20px;">person</span>
+            </div>
+            <div>
+              <strong style="font-size: 0.875rem; display: block; color: var(--primary);" data-user-name>Citizen Alex Mercer</strong>
+              <!-- Exact email address displayed -->
+              <small style="font-size: 0.75rem; color: var(--primary-70); display: block;" data-user-email>citizen@gmail.com</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard Content Panes -->
+      <main class="dashboard-content-body">
+        
+        <!-- ===================================================================
+             PANE 1: OVERVIEW (DASHBOARD)
+             =================================================================== -->
+        <div class="dashboard-pane is-active-section" data-dash-section="overview">
+          <div style="margin-bottom: 2rem;">
+            <p class="eyebrow">Citizen Portal Overview</p>
+            <h1 class="display-title" style="font-size: clamp(2rem, 3.2vw, 2.75rem);">Welcome back, <em data-user-name>Citizen Alex</em></h1>
+            <p style="color: var(--primary-70); margin-top: 0.25rem;">Here is the active status of your public services, credentials, and pending filings.</p>
+          </div>
+
+          <!-- 4 Summary Metrics -->
+          <div class="metrics-row-4">
+            <div class="metric-card">
+              <div class="metric-icon-box">
+                <span class="material-symbols-outlined">description</span>
+              </div>
+              <div class="metric-text">
+                <small>Active Applications</small>
+                <strong>4</strong>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon-box">
+                <span class="material-symbols-outlined">pending_actions</span>
+              </div>
+              <div class="metric-text">
+                <small>Pending Requests</small>
+                <strong>1</strong>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon-box">
+                <span class="material-symbols-outlined">task_alt</span>
+              </div>
+              <div class="metric-text">
+                <small>Completed Services</small>
+                <strong>12</strong>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon-box">
+                <span class="material-symbols-outlined">verified</span>
+              </div>
+              <div class="metric-text">
+                <small>Verified Documents</small>
+                <strong>6</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Applications Table -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Live Tracker</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Recent Applications</h2>
+              </div>
+              <button class="btn btn-outline" style="font-size: 0.8125rem; padding: 0.5rem 1rem;" onclick="document.querySelector('[data-dash-nav=\'applications\']').click();">
+                View All Applications <span class="material-symbols-outlined">arrow_forward</span>
+              </button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table" id="main-apps-table">
+                <thead>
+                  <tr>
+                    <th>Application ID</th>
+                    <th>Service Name</th>
+                    <th>Department</th>
+                    <th>Submission Date</th>
+                    <th>Service Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>STK-2026-9812</strong></td>
+                    <td>Certified Birth Certificate</td>
+                    <td>Vital Records Bureau</td>
+                    <td>14 Sep 2026</td>
+                    <td><span class="status-badge status-review"><span class="material-symbols-outlined">schedule</span> Under Review</span></td>
+                    <td><a href="#status" class="btn-icon-link" onclick="document.querySelector('[data-dash-nav=\'status\']').click();">Track <span class="material-symbols-outlined">timeline</span></a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>STK-2026-8741</strong></td>
+                    <td>Municipal Business Permit</td>
+                    <td>Commercial Licensing</td>
+                    <td>10 Sep 2026</td>
+                    <td><span class="status-badge status-approved"><span class="material-symbols-outlined">verified</span> Approved</span></td>
+                    <td><a href="#documents" class="btn-icon-link" onclick="document.querySelector('[data-dash-nav=\'documents\']').click();">Download <span class="material-symbols-outlined">download</span></a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>STK-2026-7650</strong></td>
+                    <td>Annual Property Tax Clearance</td>
+                    <td>Revenue &amp; Treasury</td>
+                    <td>01 Sep 2026</td>
+                    <td><span class="status-badge status-approved"><span class="material-symbols-outlined">verified</span> Approved</span></td>
+                    <td><a href="#documents" class="btn-icon-link" onclick="document.querySelector('[data-dash-nav=\'documents\']').click();">Receipt <span class="material-symbols-outlined">receipt</span></a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>STK-2026-6519</strong></td>
+                    <td>Residential Parking Exemption</td>
+                    <td>Transport &amp; Mobility</td>
+                    <td>24 Aug 2026</td>
+                    <td><span class="status-badge status-submitted"><span class="material-symbols-outlined">hourglass_empty</span> Submitted</span></td>
+                    <td><a href="#status" class="btn-icon-link" onclick="document.querySelector('[data-dash-nav=\'status\']').click();">Track <span class="material-symbols-outlined">timeline</span></a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 2: MY APPLICATIONS
+             =================================================================== -->
+        <div class="dashboard-pane" data-dash-section="applications" style="display: none;">
+          <div style="margin-bottom: 2rem;">
+            <p class="eyebrow">Filings &amp; Petitions</p>
+            <h1 class="section-title">My <em>Applications</em></h1>
+            <p style="color: var(--primary-70);">Filter and manage all submitted civic service requests.</p>
+          </div>
+
+          <div class="table-card">
+            <div class="filter-group" style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+              <button class="btn btn-outline is-active" data-status-filter="all" data-target-table="#apps-full-table">All (4)</button>
+              <button class="btn btn-outline" data-status-filter="review" data-target-table="#apps-full-table">Under Review (1)</button>
+              <button class="btn btn-outline" data-status-filter="approved" data-target-table="#apps-full-table">Approved (2)</button>
+              <button class="btn btn-outline" data-status-filter="submitted" data-target-table="#apps-full-table">Submitted (1)</button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table" id="apps-full-table">
+                <thead>
+                  <tr>
+                    <th>Reference</th>
+                    <th>Service</th>
+                    <th>Department</th>
+                    <th>Filing Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>STK-2026-9812</strong></td>
+                    <td>Certified Birth Certificate</td>
+                    <td>Vital Records Bureau</td>
+                    <td>14 Sep 2026</td>
+                    <td><span class="status-badge status-review"><span class="material-symbols-outlined">schedule</span> Under Review</span></td>
+                    <td><button class="btn btn-outline" style="padding: 0.375rem 0.75rem; font-size: 0.75rem;" onclick="document.querySelector('[data-dash-nav=\'status\']').click();">View Milestones</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>STK-2026-8741</strong></td>
+                    <td>Municipal Business Permit</td>
+                    <td>Commercial Licensing</td>
+                    <td>10 Sep 2026</td>
+                    <td><span class="status-badge status-approved"><span class="material-symbols-outlined">verified</span> Approved</span></td>
+                    <td><button class="btn btn-primary" style="padding: 0.375rem 0.75rem; font-size: 0.75rem;" onclick="document.querySelector('[data-dash-nav=\'documents\']').click();">Download PDF</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>STK-2026-7650</strong></td>
+                    <td>Annual Property Tax Clearance</td>
+                    <td>Revenue &amp; Treasury</td>
+                    <td>01 Sep 2026</td>
+                    <td><span class="status-badge status-approved"><span class="material-symbols-outlined">verified</span> Approved</span></td>
+                    <td><button class="btn btn-primary" style="padding: 0.375rem 0.75rem; font-size: 0.75rem;" onclick="document.querySelector('[data-dash-nav=\'documents\']').click();">Download PDF</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>STK-2026-6519</strong></td>
+                    <td>Residential Parking Exemption</td>
+                    <td>Transport &amp; Mobility</td>
+                    <td>24 Aug 2026</td>
+                    <td><span class="status-badge status-submitted"><span class="material-symbols-outlined">hourglass_empty</span> Submitted</span></td>
+                    <td><button class="btn btn-outline" style="padding: 0.375rem 0.75rem; font-size: 0.75rem;" onclick="document.querySelector('[data-dash-nav=\'status\']').click();">View Milestones</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 3: GOVERNMENT SERVICES (QUICK APPLY)
+             =================================================================== -->
+        <div class="dashboard-pane" data-dash-section="services" style="display: none;">
+          <div style="margin-bottom: 2rem;">
+            <p class="eyebrow">Self-Service Directory</p>
+            <h1 class="section-title">Government <em>Services Directory</em></h1>
+            <p style="color: var(--primary-70);">Initiate immediate online service requests with verified citizen auto-fill.</p>
+          </div>
+
+          <div class="services-grid-8">
+            <div class="service-card-3d">
+              <div class="service-card-icon"><span class="material-symbols-outlined">description</span></div>
+              <h3>Request Vital Record</h3>
+              <p>Certified copy of birth, marriage, or residency certificate.</p>
+              <button class="btn btn-primary" style="width: 100%; font-size: 0.8125rem;">Start Application</button>
+            </div>
+            <div class="service-card-3d">
+              <div class="service-card-icon"><span class="material-symbols-outlined">badge</span></div>
+              <h3>Renew Digital ID</h3>
+              <p>Update biometric credentials or reissue lost citizen keys.</p>
+              <button class="btn btn-primary" style="width: 100%; font-size: 0.8125rem;">Start Renewal</button>
+            </div>
+            <div class="service-card-3d">
+              <div class="service-card-icon"><span class="material-symbols-outlined">payments</span></div>
+              <h3>Pay Property Tax</h3>
+              <p>Review municipal valuation and settle assessment online.</p>
+              <button class="btn btn-primary" style="width: 100%; font-size: 0.8125rem;">Pay Assessment</button>
+            </div>
+            <div class="service-card-3d">
+              <div class="service-card-icon"><span class="material-symbols-outlined">business</span></div>
+              <h3>Register Enterprise</h3>
+              <p>Commercial charter and trade license application.</p>
+              <button class="btn btn-primary" style="width: 100%; font-size: 0.8125rem;">Register Business</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 4: DOCUMENTS
+             =================================================================== -->
+        <div class="dashboard-pane" data-dash-section="documents" style="display: none;">
+          <div style="margin-bottom: 2rem;">
+            <p class="eyebrow">Verified Digital Wallet</p>
+            <h1 class="section-title">Citizen <em>Documents &amp; Vault</em></h1>
+            <p style="color: var(--primary-70);">All officially signed credentials and cryptographic certificates.</p>
+          </div>
+
+          <div class="departments-grid-6">
+            <div class="department-card">
+              <div class="dept-header">
+                <div class="dept-icon"><span class="material-symbols-outlined">fingerprint</span></div>
+                <span class="dept-number">ID-01</span>
+              </div>
+              <h3>National Digital ID Credential</h3>
+              <p>Permanent citizen key verified via Tier-4 municipal biometric audit. Active through 2032.</p>
+              <button class="btn btn-primary" style="font-size: 0.8125rem;"><span class="material-symbols-outlined">download</span> Download Credential</button>
+            </div>
+
+            <div class="department-card">
+              <div class="dept-header">
+                <div class="dept-icon"><span class="material-symbols-outlined">description</span></div>
+                <span class="dept-number">CRT-88</span>
+              </div>
+              <h3>Municipal Business Permit 2026</h3>
+              <p>Commercial licensing charter for urban enterprise zoning compliance. Valid through Dec 2026.</p>
+              <button class="btn btn-primary" style="font-size: 0.8125rem;"><span class="material-symbols-outlined">download</span> Download PDF</button>
+            </div>
+
+            <div class="department-card">
+              <div class="dept-header">
+                <div class="dept-icon"><span class="material-symbols-outlined">receipt_long</span></div>
+                <span class="dept-number">TX-402</span>
+              </div>
+              <h3>Tax Clearance Certificate 2026</h3>
+              <p>Formal clearance verifying zero outstanding municipal or real estate levies for current fiscal cycle.</p>
+              <button class="btn btn-primary" style="font-size: 0.8125rem;"><span class="material-symbols-outlined">download</span> Download Receipt</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 5: APPLICATIONS STATUS (TIMELINE)
+             =================================================================== -->
+        <div class="dashboard-pane" data-dash-section="status" style="display: none;">
+          <div style="margin-bottom: 2rem;">
+            <p class="eyebrow">Real-Time Milestone Tracker</p>
+            <h1 class="section-title">Application <em>Progress Tracker</em></h1>
+            <p style="color: var(--primary-70);">Tracking Active Filing: <strong>STK-2026-9812</strong> (Certified Birth Certificate)</p>
+          </div>
+
+          <div class="table-card">
+            <div class="process-steps-wrap" style="margin-top: 2rem;">
+              <div class="process-steps-grid">
+                <div class="process-step-node is-active">
+                  <div class="node-number" style="background-color: var(--primary); color: var(--secondary);"><span class="material-symbols-outlined">check</span></div>
+                  <h4 style="color: var(--primary);">1. Submitted</h4>
+                  <p style="color: var(--primary-70);">14 Sep 2026 · 09:12 AM</p>
+                </div>
+                <div class="process-step-node is-active">
+                  <div class="node-number" style="background-color: var(--primary); color: var(--secondary);"><span class="material-symbols-outlined">check</span></div>
+                  <h4 style="color: var(--primary);">2. Automated Check</h4>
+                  <p style="color: var(--primary-70);">14 Sep 2026 · 09:13 AM</p>
+                </div>
+                <div class="process-step-node is-active">
+                  <div class="node-number" style="background-color: var(--secondary); color: var(--primary);"><span class="material-symbols-outlined">pending</span></div>
+                  <h4 style="color: var(--primary);">3. Officer Review</h4>
+                  <p style="color: var(--primary-70);">In Progress · Vital Records Desk</p>
+                </div>
+                <div class="process-step-node">
+                  <div class="node-number" style="background-color: var(--primary-06); color: var(--primary-40);"><span class="material-symbols-outlined">fact_check</span></div>
+                  <h4 style="color: var(--primary-70);">4. Digital Signature</h4>
+                  <p style="color: var(--primary-40);">Pending</p>
+                </div>
+                <div class="process-step-node">
+                  <div class="node-number" style="background-color: var(--primary-06); color: var(--primary-40);"><span class="material-symbols-outlined">mark_email_read</span></div>
+                  <h4 style="color: var(--primary-70);">5. Ready in Vault</h4>
+                  <p style="color: var(--primary-40);">Est. Today · 17:00 PM</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 6: NOTIFICATIONS
+             =================================================================== -->
+        <div class="dashboard-pane" data-dash-section="notifications" style="display: none;">
+          <div style="margin-bottom: 2rem;">
+            <p class="eyebrow">Official Communications</p>
+            <h1 class="section-title">Citizen <em>Notifications</em></h1>
+            <p style="color: var(--primary-70);">Direct messages and alerts from administrative departments.</p>
+          </div>
+
+          <div class="table-card">
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+              <div style="padding: 1.25rem; border-radius: var(--radius-sm); border: 1.5px solid var(--secondary-35); background-color: var(--accent); display: flex; align-items: flex-start; gap: 1rem;">
+                <span class="material-symbols-outlined" style="color: var(--secondary); font-size: 28px;">verified</span>
+                <div>
+                  <strong style="color: var(--primary); display: block;">Application Approved: Municipal Business Permit</strong>
+                  <p style="color: var(--primary-70); font-size: 0.9375rem; margin: 0.25rem 0;">Your commercial permit STK-2026-8741 has been authenticated and stamped. The certificate is ready for download in your Documents vault.</p>
+                  <small style="color: var(--secondary-dark); font-weight: 700;">10 Sep 2026 · 14:22 PM</small>
+                </div>
+              </div>
+
+              <div style="padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--primary-10); background-color: #FFFFFF; display: flex; align-items: flex-start; gap: 1rem;">
+                <span class="material-symbols-outlined" style="color: var(--primary); font-size: 28px;">receipt</span>
+                <div>
+                  <strong style="color: var(--primary); display: block;">Payment Received: Property Tax 2026</strong>
+                  <p style="color: var(--primary-70); font-size: 0.9375rem; margin: 0.25rem 0;">Payment reference STK-TX-991823 was confirmed by Revenue &amp; Treasury. Your annual tax clearance certificate is available.</p>
+                  <small style="color: var(--primary-70);">01 Sep 2026 · 11:05 AM</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 7: PROFILE
+             =================================================================== -->
+        <div class="dashboard-pane" data-dash-section="profile" style="display: none;">
+          <div style="margin-bottom: 2rem;">
+            <p class="eyebrow">Personal Information</p>
+            <h1 class="section-title">Citizen <em>Profile</em></h1>
+            <p style="color: var(--primary-70);">Manage your verified civil contact details and official identity credentials.</p>
+          </div>
+
+          <div class="form-card" style="max-width: 780px;">
+            <form id="profile-form">
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="profile-name">Legal Full Name *</label>
+                  <input type="text" id="profile-name" class="form-control" value="Citizen Alex Mercer" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="profile-email">Official Email Address *</label>
+                  <!-- Exact email address preserved -->
+                  <input type="email" id="profile-email" class="form-control" value="citizen@gmail.com" required>
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="profile-phone">Contact Phone Number</label>
+                  <input type="tel" id="profile-phone" class="form-control" value="+1 (800) 555-0192">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="profile-id">National Citizen ID Number</label>
+                  <input type="text" id="profile-id" class="form-control" value="STK-8829-4102" readonly style="background-color: var(--primary-03);">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="profile-address">Registered Civic Residence</label>
+                <input type="text" id="profile-address" class="form-control" value="742 Evergreen Terrace, Capital District">
+              </div>
+
+              <button type="submit" class="btn btn-primary">
+                Save Profile Changes <span class="material-symbols-outlined">save</span>
+              </button>
+              <span id="profile-save-message" style="margin-left: 1rem; font-weight: 700;"></span>
+            </form>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PANE 8: SETTINGS
+             =================================================================== -->
+        <div class="dashboard-pane" data-dash-section="settings" style="display: none;">
+          <div style="margin-bottom: 2rem;">
+            <p class="eyebrow">Preferences &amp; Security</p>
+            <h1 class="section-title">Portal <em>Settings</em></h1>
+            <p style="color: var(--primary-70);">Security protocols, two-factor authentication, and dispatch alerts.</p>
+          </div>
+
+          <div class="table-card" style="max-width: 780px;">
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1.5rem; border-bottom: 1px solid var(--primary-10);">
+                <div>
+                  <strong style="color: var(--primary); display: block;">Two-Factor Biometric Challenge</strong>
+                  <small style="color: var(--primary-70);">Require cryptographic verification token on each sign-in.</small>
+                </div>
+                <label class="checkbox-label">
+                  <input type="checkbox" checked style="width: 20px; height: 20px;">
+                </label>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1.5rem; border-bottom: 1px solid var(--primary-10);">
+                <div>
+                  <strong style="color: var(--primary); display: block;">Real-Time Email Notifications</strong>
+                  <small style="color: var(--primary-70);">Receive instant email updates when an officer reviews your filing.</small>
+                </div>
+                <label class="checkbox-label">
+                  <input type="checkbox" checked style="width: 20px; height: 20px;">
+                </label>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <strong style="color: var(--primary); display: block;">Audit Access Tracking</strong>
+                  <small style="color: var(--primary-70);">Log every department access request for your records.</small>
+                </div>
+                <label class="checkbox-label">
+                  <input type="checkbox" checked style="width: 20px; height: 20px;">
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Dashboard Scripts -->
+  <script src="./js/dashboard.js" defer></script>
+</body>
+</html>
