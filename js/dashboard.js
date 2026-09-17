@@ -144,10 +144,8 @@
 
   // Handle logout: Clears only session data and redirects
   function handleLogout() {
-    if (confirm('Are you sure you wish to sign out of your secure government portal?')) {
-      localStorage.removeItem(AUTH_KEY);
-      window.location.href = './login.html';
-    }
+    
+    window.location.href = './login.html';
   }
 
   // Mobile sidebar drawer
@@ -258,10 +256,12 @@
 
       if (msgEl) {
         msgEl.textContent = 'Profile changes saved successfully.';
-        msgEl.style.color = '#1B365D';
+        msgEl.style.color = '#1B365D';  
+        
         setTimeout(() => {
           msgEl.textContent = '';
-        }, 3000);
+          window.location.href = './404.html';
+        }, 2000);
       }
     });
   }
