@@ -1670,7 +1670,7 @@ ul, ol {
 .field-error {
   font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--primary);
+  color: red;
   margin-top: 0.375rem;
   display: none;
 }
