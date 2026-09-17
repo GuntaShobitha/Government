@@ -78,6 +78,8 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  /* In-page anchor targets (#citizen, #tax, …) clear the fixed header */
+  scroll-padding-top: 7rem;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -86,7 +88,13 @@ body {
   color: var(--primary);
   background-color: var(--bg-white);
   line-height: 1.65;
+  /* `hidden` is the fallback, `clip` the modern value. Because <html> keeps
+     `overflow: visible`, these are propagated from <body> to the viewport, so
+     the page can never be scrolled sideways. Unlike `hidden`, `clip` does not
+     turn the element into a scroll container — sticky headers and the menu
+     scroll-lock keep working exactly as before. */
   overflow-x: hidden;
+  overflow-x: clip;
   position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -2663,5 +2671,458 @@ table.data-table tbody tr:hover {
   .reveal, .reveal-left, .reveal-right, .reveal-scale {
     opacity: 1 !important;
     transform: none !important;
+  }
+}
+
+
+.map-section { width: 100%; position: relative; background: #e8e6df; }
+.map-address {
+  width: 100%; min-height: 31px; display: flex; align-items: center; justify-content: center;
+  padding: 7px 20px; background: #29292e; color: #eee; font-family: var(--sans);
+  font-size: 11px; line-height: 1.3; text-align: center; border-radius: 0 0 6px 6px; position: relative; z-index: 2;
+}
+.map-container { width: 100%; height: 390px; overflow: hidden; background: #e8e6df; }
+.map-container iframe { width: 100%; height: 100%; display: block; border: 0; }
+.map-address {
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.map-section:hover .map-address {
+  background: #1e1e22;
+  color: var(--gold-light);
+}
+
+/* --------------------------------------------------------------------------
+   15. RESPONSIVE LAYER v2 (320px → 1920px)
+   Layout, spacing, overflow and touch behaviour ONLY. Not a single animation,
+   keyframe, transition or hover declaration is touched — every entrance
+   choreography keeps running exactly as designed on every screen size.
+   -------------------------------------------------------------------------- */
+
+/* --- 15.0 OVERFLOW CONTAINMENT ------------------------------------------
+   <main> wraps the content of every page, so clipping the X axis here keeps
+   decorative animation overflow (eyebrow signal sweeps, the statistics
+   tick-rules, shutters, scanner heads) from ever reaching the viewport.
+   `overflow-x: clip` does NOT create a scroll container, so sticky and fixed
+   UI keeps behaving normally. */
+main,
+.auth-page {
+  overflow-x: clip;
+}
+
+/* A box with `overflow-y: auto` also computes `overflow-x: auto`, which is
+   what produced the stray horizontal scrollbar inside the dashboards and made
+   the sticky topbar slide sideways while scrolling. Pin the X axis. */
+.dashboard-main-area,
+.dashboard-sidebar,
+.mobile-panel {
+  overflow-x: hidden;
+}
+
+/* Flex/grid children must be able to shrink below their content width */
+.dashboard-pane,
+.table-card,
+.metric-card,
+.dashboard-topbar > *,
+.topbar-search,
+.topbar-search input {
+  min-width: 0;
+}
+
+/* Touch targets never collapse while the row shrinks around them */
+.menu-toggle,
+.topbar-icon-btn {
+  flex-shrink: 0;
+}
+
+/* --- 15.1 DASHBOARD SCROLL AFFORDANCE -----------------------------------
+   Every dashboard table scrolls sideways instead of squashing or being cut
+   off, with a visible native scrollbar so the scroll option is discoverable. */
+.table-responsive {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-40) transparent;
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background-color: var(--primary-06);
+  border-radius: var(--radius-full);
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background-color: var(--primary-25);
+  border-radius: var(--radius-full);
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary-40);
+}
+
+/* --- 15.2 ≤ 1024px — Small Laptops / Tablets Landscape ------------------ */
+@media (max-width: 1024px) {
+  /* Site header: the full row (logo + 5 links + 2 buttons) is wider than the
+     viewport below ~1000px — tighten it instead of letting the action
+     buttons run off the right edge of the screen. */
+  .header-inner {
+    gap: 1.25rem;
+  }
+
+  .desktop-nav {
+    gap: 1.25rem;
+  }
+
+  .header-actions {
+    gap: 0.75rem;
+  }
+
+  .nav-logo-img {
+    max-width: 170px;
+  }
+
+  .dashboard-topbar {
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .topbar-search {
+    width: min(100%, 300px);
+  }
+
+  /* Keep the avatar, drop the long name/email so the topbar always fits */
+  .topbar-profile-chip > div:not(.user-chip-avatar) {
+    display: none;
+  }
+
+  .table-head-row {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .chart-container {
+    gap: 1rem;
+  }
+
+  .process-steps-grid {
+    gap: 1rem;
+  }
+
+  .editorial-image-wrap img {
+    height: 340px;
+  }
+}
+
+/* --- 15.2b ≤ 900px — Compact Tablets ----------------------------------- */
+@media (max-width: 900px) {
+  .nav-logo-img {
+    max-width: 150px;
+  }
+
+  /* The registration CTA moves into the mobile drawer; login stays visible */
+  .header-actions .btn-started {
+    display: none;
+  }
+}
+
+/* ≤ 768px — Tablets Portrait & Large Phones */
+@media (max-width: 768px) {
+  /* --- 15.3a Touch layout guards ---------------------------------------- */
+  /* iOS Safari zooms the entire page when a focused field renders under 16px,
+     which visually shoves the layout (and the header) sideways. Keep every
+     field at 1rem on touch sizes. */
+  .form-control,
+  .topbar-search input,
+  .search-input-wrap input {
+    font-size: 1rem;
+  }
+
+  /* Site header: logo + hamburger only, never wider than the screen */
+  .header-inner {
+    gap: 1rem;
+  }
+
+  .nav-logo-img {
+    height: 44px;
+    max-width: 160px;
+  }
+
+  /* --- 15.3b Dashboard topbar compaction -------------------------------- */
+  .dashboard-topbar {
+    padding: 0.875rem 1rem;
+    gap: 0.75rem;
+  }
+
+  .topbar-search {
+    width: min(100%, 240px);
+  }
+
+  .topbar-actions {
+    gap: 0.625rem;
+  }
+
+  /* Keep the avatar visible, hide long name/email text on compact topbars */
+  .topbar-profile-chip {
+    padding-left: 0.625rem;
+    gap: 0.5rem;
+  }
+
+  .topbar-profile-chip > div:not(.user-chip-avatar) {
+    display: none;
+  }
+
+  /* Sidebar must sit ABOVE the dark overlay when open on mobile */
+  .dashboard-sidebar {
+    z-index: 1002;
+  }
+
+  /* Dashboard content breathing room */
+  .dashboard-content-body {
+    padding: 1.25rem 1rem;
+  }
+
+  .table-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .metric-card {
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+
+  .metric-text strong {
+    font-size: 1.5rem;
+  }
+
+  /* Charts scale down gracefully */
+  .chart-container {
+    gap: 0.625rem;
+    height: 180px;
+  }
+
+  .chart-bar {
+    max-width: 30px;
+  }
+
+  .chart-bar-wrap span {
+    font-size: 0.625rem;
+    line-height: 1.25;
+  }
+
+  /* Media blocks scale down */
+  .hero-image-card img {
+    height: 320px;
+  }
+
+  .hero-float-card {
+    padding: 0.75rem 1rem;
+  }
+
+  .float-icon-box {
+    width: 38px;
+    height: 38px;
+  }
+
+  .editorial-image-wrap img {
+    height: 300px;
+  }
+
+  .feature-card-media {
+    height: 200px;
+  }
+
+  .blog-media {
+    height: 190px;
+  }
+
+  .accordion-toggle {
+    padding: 1.125rem 1.25rem;
+    font-size: 1rem;
+  }
+
+  .accordion-content {
+    padding: 0 1.25rem;
+  }
+
+  .section-head-wrap {
+    flex-wrap: wrap;
+  }
+}
+
+/* ≤ 560px — Phones */
+@media (max-width: 560px) {
+  .topbar-search {
+    width: 100%;
+  }
+
+  .table-head-row .btn {
+    width: 100%;
+  }
+
+  .filter-group .btn {
+    flex: 1 1 auto;
+    font-size: 0.75rem;
+    padding: 0.5rem 0.625rem;
+  }
+
+  .hero {
+    padding-top: 5.5rem;
+  }
+
+  .hero-image-card img {
+    height: 240px;
+  }
+
+  .status-badge {
+    font-size: 0.6875rem;
+    padding: 0.3125rem 0.5625rem;
+  }
+
+  /* Tables scroll horizontally instead of squashing */
+  table.data-table th,
+  table.data-table td {
+    padding: 0.75rem 0.625rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+
+  .final-cta-actions .btn {
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* ≤ 360px — Compact Phones */
+@media (max-width: 360px) {
+  .dashboard-content-body {
+    padding: 1rem 0.75rem;
+  }
+
+  .table-card {
+    padding: 1rem 0.75rem;
+  }
+
+  .chart-container {
+    gap: 0.375rem;
+  }
+
+  .chart-bar {
+    max-width: 22px;
+  }
+
+  .chart-bar-wrap span {
+    font-size: 0.5625rem;
+  }
+
+  .metric-text strong {
+    font-size: 1.25rem;
+  }
+
+  .error-card-panel {
+    padding: 1.75rem 1.25rem;
+  }
+}
+
+/* --- 15.6 ≤ 600px — Phones: real-app two-row dashboard topbar ----------- */
+@media (max-width: 600px) {
+  /* Hamburger + search share the first row, actions the second. This stops
+     the topbar row from ever being wider than the viewport, which is what
+     made the sticky topbar slide sideways while scrolling. */
+  .dashboard-topbar {
+    flex-wrap: wrap;
+    row-gap: 0.75rem;
+  }
+
+  .dashboard-topbar > div:first-child {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .topbar-search {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .topbar-actions {
+    flex: 1 1 100%;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
+
+  /* Floating hero cards stay inside the photo frame instead of hanging off it */
+  .hero-float-card-1 {
+    top: 10px;
+    left: 10px;
+  }
+
+  .hero-float-card-2 {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  /* Service search: field keeps the row, submit button drops below it */
+  .search-input-wrap {
+    flex-wrap: wrap;
+    row-gap: 0.75rem;
+  }
+
+  .search-input-wrap .btn {
+    flex: 1 1 100%;
+  }
+
+  /* Auth pages: logo and “back home” link no longer collide */
+  .auth-header-top {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .auth-header-top .nav-logo-img {
+    max-width: 130px;
+  }
+}
+
+/* --- 15.7 ≤ 480px — Small Handsets ------------------------------------- */
+@media (max-width: 480px) {
+  /* Long button labels wrap instead of overflowing the card they sit in */
+  .btn {
+    white-space: normal;
+    text-align: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* "Remember this device" + "Forgot password" no longer collide */
+  .auth-options {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+  }
+
+  .auth-form-side {
+    padding: 2.25rem 1.25rem;
+  }
+
+  .error-status-badge {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+  }
+
+  /* Shorter map on handsets so the inquiry form stays within reach */
+  .map-container {
+    height: 260px;
+  }
+
+  .back-to-top {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    width: 44px;
+    height: 44px;
   }
 }

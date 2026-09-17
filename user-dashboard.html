@@ -13,6 +13,7 @@
   
   <!-- Primary Stylesheet -->
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/animations.css">
 </head>
 <body class="dashboard-page user-page">
 
@@ -178,7 +179,7 @@
                 <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Recent Applications</h2>
               </div>
               <button class="btn btn-outline" style="font-size: 0.8125rem; padding: 0.5rem 1rem;" onclick="document.querySelector('[data-dash-nav=\'applications\']').click();">
-                View All Applications <span class="material-symbols-outlined">arrow_forward</span>
+                View All Applications <span class="material-symbols-outlined"></span>
               </button>
             </div>
 
@@ -451,8 +452,17 @@
                 <span class="material-symbols-outlined" style="color: var(--primary); font-size: 28px;">receipt</span>
                 <div>
                   <strong style="color: var(--primary); display: block;">Payment Received: Property Tax 2026</strong>
-                  <p style="color: var(--primary-70); font-size: 0.9375rem; margin: 0.25rem 0;">Payment reference STK-TX-991823 was confirmed by Revenue &amp; Treasury. Your annual tax clearance certificate is available.</p>
+                  <p style="color: var(--primary-70); font-size: 0.9375rem; margin: 0.25rem 0;">Payment reference STK-TX-991823 was confirmed by Revenue & Treasury. Your annual tax clearance certificate is available.</p>
                   <small style="color: var(--primary-70);">01 Sep 2026 · 11:05 AM</small>
+                </div>
+              </div>
+
+              <div style="padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--primary-10); background-color: #FFFFFF; display: flex; align-items: flex-start; gap: 1rem;">
+                <span class="material-symbols-outlined" style="color: var(--primary); font-size: 28px;">schedule</span>
+                <div>
+                  <strong style="color: var(--primary); display: block;">Officer Review In Progress: Birth Certificate</strong>
+                  <p style="color: var(--primary-70); font-size: 0.9375rem; margin: 0.25rem 0;">Your filing STK-2026-9812 has advanced to the officer review desk at the Vital Records Bureau. Estimated completion today by 17:00 PM.</p>
+                  <small style="color: var(--primary-70);">14 Sep 2026 · 10:15 AM</small>
                 </div>
               </div>
             </div>
@@ -558,5 +568,6 @@
 
   <!-- Dashboard Scripts -->
   <script src="./js/dashboard.js" defer></script>
+  <script src="./js/advanced-animations.js" defer></script>
 </body>
 </html>

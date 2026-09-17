@@ -1,463 +1,523 @@
 /* ==========================================================================
-   STACKLY GOVERNMENT SERVICES — ADVANCED SECTION ANIMATION LAYER
-   Layered ON TOP of style.css. Targets existing section classes/IDs, so no
-   HTML redesign is needed. Strict 3-color identity preserved:
-   #1B365D navy | #C9A227 gold | #F5F1E8 cream
+   STACKLY GOVERNMENT SERVICES — CINEMATIC BROADCAST ANIMATION LAYER v2
+   Layered ON TOP of style.css. No HTML redesign required.
+   Strict 3-color identity: #1B365D navy | #C9A227 gold | #F5F1E8 cream
+
+   Design language: television title sequence / premium brand film.
+   Every entrance is a CHOREOGRAPHY — mask risers, signal locks, scanner
+   sweeps, shutter collapses, ledger wipes, shockwave ticks, traveling data
+   packets. No fades, no zooms, no hover gimmicks.
+   Every effect RE-ARMS and REPLAYS each time it re-enters the viewport.
    ========================================================================== */
 
 /* ------------------------------------------------------------------ */
 /* 00. TOKENS                                                         */
 /* ------------------------------------------------------------------ */
 :root {
-  --aa-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --aa-ease-elastic: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --aa-ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
-  --aa-spring: cubic-bezier(0.22, 1.28, 0.36, 1);
+  --aa-out: cubic-bezier(0.16, 1, 0.3, 1);          /* flagship decel   */
+  --aa-inout: cubic-bezier(0.65, 0, 0.35, 1);       /* mechanical       */
+  --aa-sheet: cubic-bezier(0.77, 0, 0.18, 1);       /* hard shutters    */
+  --aa-lock: cubic-bezier(0.22, 1.4, 0.36, 1);      /* lock-in settle   */
+  --aa-gold: rgba(201, 162, 39, 1);
+  --aa-gold-60: rgba(201, 162, 39, 0.6);
+  --aa-gold-35: rgba(201, 162, 39, 0.35);
+  --aa-gold-18: rgba(201, 162, 39, 0.18);
+  --aa-cream-70: rgba(245, 241, 232, 0.7);
+  --aa-cream-35: rgba(245, 241, 232, 0.35);
 }
 
 /* ------------------------------------------------------------------ */
-/* 01. ENGINE HELPERS (driven by js/advanced-animations.js)           */
+/* 01. ENGINE STATES                                                  */
+/*     html.js-anim is added by JS only when motion is allowed.       */
+/*     .is-in = element is on stage. Removed on exit => replay.       */
 /* ------------------------------------------------------------------ */
-html.js-anim [data-anim]:not(.is-in),
-html.js-anim [data-anim-clip]:not(.is-in) {
+html.js-anim [data-cine]:not(.is-in),
+html.js-anim [data-cine-child]:not(.is-in),
+html.js-anim .cine-owned:not(.is-in) {
   opacity: 0;
 }
 
-/* Word-mask wrapper for split titles */
-.wm {
+/* Neutralize the legacy reveal transforms for engine-owned elements */
+html.js-anim .reveal.cine-owned,
+html.js-anim .reveal-left.cine-owned,
+html.js-anim .reveal-right.cine-owned,
+html.js-anim .reveal-scale.cine-owned,
+html.js-anim .reveal-clip.cine-owned {
+  transform: none;
+  transition: none;
+}
+
+/* Everything becomes visible the moment it is on stage */
+html.js-anim [data-cine].is-in,
+html.js-anim [data-cine-child].is-in,
+html.js-anim .cine-owned.is-in {
+  opacity: 1;
+}
+
+/* Word-mask wrapper (split titles) */
+.cw {
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
-  padding-bottom: 0.14em;
-  margin-bottom: -0.14em;
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
 }
 
 /* ------------------------------------------------------------------ */
-/* 02. GENERIC ENTRANCE EFFECTS                                       */
+/* 02. TYPE MECHANICS                                                 */
 /* ------------------------------------------------------------------ */
-@keyframes aaRise {
-  from { opacity: 0; transform: translateY(34px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
 
-@keyframes aaFade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes aaPop {
-  0%   { opacity: 0; transform: scale(0.5) translateY(18px); }
-  60%  { opacity: 1; transform: scale(1.06) translateY(-3px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-@keyframes aaSlideLeft {
-  from { opacity: 0; transform: perspective(1200px) translateX(-70px) rotateY(9deg); }
-  to   { opacity: 1; transform: perspective(1200px) translateX(0) rotateY(0deg); }
-}
-
-@keyframes aaSlideRight {
-  from { opacity: 0; transform: perspective(1200px) translateX(70px) rotateY(-9deg); }
-  to   { opacity: 1; transform: perspective(1200px) translateX(0) rotateY(0deg); }
-}
-
-@keyframes aaCardFlip {
-  from {
-    opacity: 0;
-    transform: perspective(1100px)
-      rotateY(calc(var(--aa-side, 1) * 42deg))
-      translateX(calc(var(--aa-side, 1) * 60px))
-      scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: perspective(1100px) rotateY(0deg) translateX(0) scale(1);
-  }
-}
-
-@keyframes aaProcessPop {
-  from { opacity: 0; transform: translateY(44px) scale(0.6); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes aaCardWipe {
-  from { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); opacity: 0; }
-  to   { clip-path: polygon(-60% -60%, 160% -60%, 160% 160%, -60% 160%); opacity: 1; }
-}
-
-@keyframes aaDeptRise {
-  from {
-    opacity: 0;
-    transform: translateY(56px) rotate(calc(var(--aa-side, 1) * 4deg)) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) rotate(0deg) scale(1);
-  }
-}
-
-@keyframes aaBlurIn {
-  from { opacity: 0; filter: blur(14px); transform: translateY(30px) scale(0.9); }
-  to   { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
-}
-
-@keyframes aaStatZoom {
-  from { opacity: 0; transform: scale(0.7); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-@keyframes aaSecurityPop {
-  from { opacity: 0; transform: translateY(34px) scale(0.94); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes aaPillPop {
-  from { opacity: 0; transform: scale(0.5) translateY(26px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-@keyframes aaPanelFlip {
-  from { opacity: 0; transform: perspective(1400px) rotateX(-13deg) translateY(54px) scale(0.97); }
-  to   { opacity: 1; transform: perspective(1400px) rotateX(0deg) translateY(0) scale(1); }
-}
-
-@keyframes aaBadgeStamp {
-  from { opacity: 0; transform: scale(0) rotate(-14deg); }
-  to   { opacity: 1; transform: scale(1) rotate(0deg); }
-}
-
-/* Effect bindings */
-html.js-anim [data-anim="rise"].is-in {
-  animation: aaRise 0.8s var(--aa-ease-out) calc(var(--i, 0) * 90ms) backwards;
-}
-
-html.js-anim [data-anim="fade"].is-in {
-  animation: aaFade 0.9s var(--aa-ease-out) calc(var(--i, 0) * 100ms) backwards;
-}
-
-html.js-anim [data-anim="pop"].is-in {
-  animation: aaPop 0.7s var(--aa-spring) calc(var(--i, 0) * 110ms) backwards;
-}
-
-html.js-anim [data-anim="left"].is-in {
-  animation: aaSlideLeft 0.95s var(--aa-ease-out) calc(var(--i, 0) * 100ms) backwards;
-}
-
-html.js-anim [data-anim="right"].is-in {
-  animation: aaSlideRight 0.95s var(--aa-ease-out) calc(var(--i, 0) * 100ms) backwards;
-}
-
-/* Word-by-word masked title cascade */
-html.js-anim [data-anim="words"] .anim-child {
+/* 02a. mask-words — display/section titles: words rise out of        */
+/*      baseline masks, one after another (newsroom build).           */
+html.js-anim [data-cine="mask-words"] .cine-word {
   display: inline-block;
-  transform: translateY(125%);
-  transition: transform 0.85s var(--aa-ease-out);
-  transition-delay: calc(var(--w, 0) * 60ms);
+  transform: translateY(130%) rotate(4deg);
+  transition: transform 0.9s var(--aa-out);
+  transition-delay: calc(var(--w, 0) * 70ms);
   will-change: transform;
 }
 
-html.js-anim [data-anim="words"].is-in .anim-child {
-  transform: translateY(0);
+html.js-anim [data-cine="mask-words"].is-in .cine-word {
+  transform: translateY(0) rotate(0deg);
 }
 
-/* Clip-path wipe (hero image + editorial images) */
-html.js-anim [data-anim-clip].is-in {
+/* 02b. signal — eyebrows: the frame "locks on". A gold blade sweeps  */
+/*      across the label once while the tracking tightens into place. */
+html.js-anim [data-cine="signal"] {
+  --aa-ls: 0.14em; /* matches .eyebrow base tracking */
   position: relative;
-  animation: aaCardWipe 1.05s var(--aa-ease-inout) 0.2s backwards;
+  transition: letter-spacing 0.9s var(--aa-out);
 }
 
-html.js-anim [data-anim-clip]::after {
+html.js-anim [data-cine="signal"]:not(.is-in) {
+  letter-spacing: 0.5em;
+}
+
+html.js-anim [data-cine="signal"].is-in {
+  letter-spacing: var(--aa-ls);
+}
+
+html.js-anim [data-cine="signal"]::after {
+  content: '';
+  position: absolute;
+  inset: -2px -6px;
+  background: linear-gradient(90deg,
+    transparent 0%, var(--aa-gold) 45%, var(--aa-gold) 55%, transparent 100%);
+  transform: translateX(-110%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+html.js-anim [data-cine="signal"].is-in::after {
+  animation: aaSignalSweep 0.85s var(--aa-inout) forwards;
+}
+
+@keyframes aaSignalSweep {
+  0%   { transform: translateX(-110%); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateX(110%); opacity: 0; }
+}
+
+/* 02c. scan — lead paragraphs: a cream scanner line travels down the */
+/*      block and the text materializes behind it.                    */
+html.js-anim [data-cine="scan"] {
+  position: relative;
+}
+
+html.js-anim [data-cine="scan"]::before {
+  content: '';
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  top: -6px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--aa-cream-70) 50%, transparent);
+  box-shadow: 0 0 14px 2px var(--aa-gold-35);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+html.js-anim [data-cine="scan"].is-in {
+  animation: aaScanReveal 1.1s var(--aa-inout) 0.05s backwards;
+}
+
+html.js-anim [data-cine="scan"].is-in::before {
+  animation: aaScanHead 1.1s var(--aa-inout) 0.05s forwards;
+}
+
+@keyframes aaScanReveal {
+  0%   { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 -8% 0); }
+}
+
+@keyframes aaScanHead {
+  0%   { top: -6px; opacity: 0; }
+  10%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { top: 102%; opacity: 0; }
+}
+
+/* 02d. Generic editorial wipe — the fallback entrance for all other  */
+/*      owned elements (buttons, links, small text blocks).           */
+@keyframes aaMaskWipe {
+  0%   { clip-path: inset(0 100% 0 0); transform: translateY(16px); opacity: 0; }
+  1%   { opacity: 1; }
+  100% { clip-path: inset(0 0 0 0); transform: translateY(0); opacity: 1; }
+}
+
+html.js-anim .cine-owned:not([data-cine]):not([data-cine-child]).is-in {
+  animation: aaMaskWipe 0.75s var(--aa-out) calc(var(--d, 0) * 1ms) backwards;
+}
+
+/* ------------------------------------------------------------------ */
+/* 03. CARD GRAMMAR (staggered grid children)                         */
+/* ------------------------------------------------------------------ */
+
+/* 03a. ledger — precision wipe with a drawn gold ledger rule         */
+@keyframes aaLedgerWipe {
+  0%   { clip-path: polygon(var(--g1, 35%) 0, 100% 0, 100% 100%, var(--g1, 35%) 100%); opacity: 0; }
+  1%   { opacity: 1; }
+  100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 1; }
+}
+
+html.js-anim [data-cine-child="ledger"].is-in {
+  animation: aaLedgerWipe 0.8s var(--aa-out) calc(var(--i, 0) * 80ms) backwards;
+}
+
+html.js-anim [data-cine-child="ledger"] {
+  position: relative;
+}
+
+html.js-anim [data-cine-child="ledger"].is-in::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(105deg, transparent 0%, rgba(245, 241, 232, 0.35) 50%, transparent 100%);
-  transform: translateX(-130%) skewX(-15deg);
-  z-index: 4;
+  bottom: 0;
+  left: -1px;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--aa-gold) 0%, var(--aa-gold-18) 100%);
+  transform-origin: top center;
   pointer-events: none;
+  animation: aaRuleDraw 0.55s var(--aa-inout) calc(var(--i, 0) * 80ms) backwards,
+             aaRuleFade 0.6s ease calc(var(--i, 0) * 80ms + 1.5s) forwards;
 }
 
-html.js-anim [data-anim-clip].is-in::after {
-  animation: aaWipeShine 1.2s var(--aa-ease-inout) 0.9s forwards;
+@keyframes aaRuleDraw {
+  0%   { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
 }
 
-@keyframes aaWipeShine {
-  to { transform: translateX(320%) skewX(-15deg); }
+@keyframes aaRuleFade {
+  to { opacity: 0; }
 }
 
-/* ------------------------------------------------------------------ */
-/* 03. HOVER EXTRAS (mouse devices only — touch safe)                 */
-/* ------------------------------------------------------------------ */
-@media (hover: hover) and (pointer: fine) {
-  .department-card,
-  .benefit-card,
-  .category-pill,
-  .feature-service-card,
-  .search-panel-box {
-    position: relative;
-    overflow: hidden;
-  }
+/* 03b. riser — hardware lock-in: element docks upward and settles    */
+@keyframes aaRiserLock {
+  0%   { opacity: 0; transform: translateY(44px) scale(0.94); }
+  60%  { opacity: 1; transform: translateY(-5px) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-  .service-card-3d::after,
-  .department-card::after,
-  .benefit-card::after,
-  .security-step-card::after,
-  .feature-service-card::after,
-  .category-pill::after,
-  .search-panel-box::after {
-    content: '';
-    position: absolute;
-    top: -60%;
-    left: -80%;
-    width: 55%;
-    height: 220%;
-    background: linear-gradient(
-      105deg,
-      rgba(201, 162, 39, 0) 0%,
-      rgba(201, 162, 39, 0.10) 45%,
-      rgba(245, 241, 232, 0.45) 50%,
-      rgba(201, 162, 39, 0.10) 55%,
-      rgba(201, 162, 39, 0) 100%
-    );
-    transform: skewX(-20deg) translateX(-120%);
-    transition: transform 0.9s var(--aa-ease-inout);
-    pointer-events: none;
-    z-index: 3;
-  }
+html.js-anim [data-cine-child="riser"].is-in {
+  animation: aaRiserLock 0.75s var(--aa-lock) calc(var(--i, 0) * 90ms) backwards;
+}
 
-  .service-card-3d:hover::after,
-  .department-card:hover::after,
-  .benefit-card:hover::after,
-  .security-step-card:hover::after,
-  .feature-service-card:hover::after,
-  .category-pill:hover::after,
-  .search-panel-box:hover::after {
-    transform: skewX(-20deg) translateX(420%);
-  }
+/* 03c. pill — coordinate stamps (category chips) */
+html.js-anim [data-cine-child="pill"].is-in {
+  animation: aaPillStamp 0.5s var(--aa-lock) calc(var(--i, 0) * 55ms) backwards;
+}
 
-  .final-cta-actions .btn,
-  .hero-actions .btn {
-    transition: transform 0.25s var(--aa-ease-elastic), box-shadow 0.25s var(--aa-ease-elastic);
-  }
+@keyframes aaPillStamp {
+  0%   { opacity: 0; transform: translateY(18px) scale(0.55); }
+  70%  { opacity: 1; transform: translateY(-3px) scale(1.05); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-  .final-cta-actions .btn:hover,
-  .hero-actions .btn:hover {
-    transform: translateY(-3px) scale(1.04);
-  }
+/* 03d. wire — blueprint build: image frame traces on from the left   */
+@keyframes aaWireBuild {
+  0%   { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+  100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+}
+
+html.js-anim [data-cine-child="wire"].is-in {
+  animation: aaWireBuild 0.9s var(--aa-inout) 0.3s backwards;
+}
+
+/* 03e. stat — seismograph tick handled in §10; this only owns the       */
+/*       pre-hide/visible contract for counter boxes.                     */
+html.js-anim [data-cine-child="stat"].is-in {
+  opacity: 1;
 }
 
 /* ------------------------------------------------------------------ */
-/* 04. HERO — AURORA FIELD, PARTICLES, LEVITATING CARDS               */
+/* 04. HERO — IDENTITY ASSEMBLY                                       */
 /* ------------------------------------------------------------------ */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: -20%;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(42% 42% at 22% 30%, rgba(201, 162, 39, 0.22) 0%, transparent 62%),
-    radial-gradient(46% 46% at 78% 68%, rgba(122, 158, 209, 0.16) 0%, transparent 65%),
-    radial-gradient(30% 30% at 60% 20%, rgba(245, 241, 232, 0.10) 0%, transparent 60%);
-  filter: blur(10px);
-  animation: aaAuroraDrift 16s var(--aa-ease-inout) infinite alternate;
-}
-
-@keyframes aaAuroraDrift {
-  0%   { transform: translate3d(-4%, -2%, 0) rotate(0deg) scale(1); }
-  50%  { transform: translate3d(3%, 3%, 0) rotate(4deg) scale(1.12); }
-  100% { transform: translate3d(5%, -3%, 0) rotate(-5deg) scale(1); }
-}
-
-.aa-particles {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
+.hero {
+  position: relative;
   overflow: hidden;
 }
 
-.aa-particle {
+/* Floating interface cards dock with hardware settle */
+html.js-anim .hero-float-card {
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------ */
+/* 05. CORE SERVICES — CIRCUIT ASSEMBLY                               */
+/*     Vertical gold bus-lines rise through the grid; cards light on  */
+/*     with ledger wipes (03a).                                       */
+/* ------------------------------------------------------------------ */
+.services-section {
+  position: relative;
+  overflow: hidden;
+}
+
+html.js-anim .services-section .cine-circuit {
   position: absolute;
-  bottom: -12px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(245, 241, 232, 0.55);
-  box-shadow: 0 0 10px 2px rgba(201, 162, 39, 0.45);
-  opacity: 0;
-  animation: aaParticleRise var(--p-dur, 12s) var(--p-delay, 0s) linear infinite;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg,
+    transparent 0%, var(--aa-gold-60) 18%, var(--aa-gold-35) 82%, transparent 100%);
+  transform: scaleY(0);
+  transform-origin: top center;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.aa-particle.aa-gold {
-  background: rgba(201, 162, 39, 0.75);
+html.js-anim .services-section.is-in .cine-circuit {
+  animation: aaBusRise 1.1s var(--aa-inout) forwards;
 }
 
-@keyframes aaParticleRise {
-  0%   { transform: translate3d(0, 0, 0) scale(0.4); opacity: 0; }
-  8%   { opacity: 0.9; }
-  50%  { transform: translate3d(var(--p-sway, 30px), calc(-50vh - 40px), 0) scale(1); }
-  92%  { opacity: 0.75; }
-  100% { transform: translate3d(calc(var(--p-sway, 30px) * -0.6), -110vh, 0) scale(0.5); opacity: 0; }
-}
-
-.hero-float-card {
-  animation: aaLevitate 5.5s ease-in-out infinite;
-}
-
-.hero-float-card-2 {
-  animation-delay: -2.75s;
-}
-
-@keyframes aaLevitate {
-  0%, 100% { translate: 0 0; }
-  50%      { translate: 0 -10px; }
+@keyframes aaBusRise {
+  to { transform: scaleY(1); }
 }
 
 /* ------------------------------------------------------------------ */
-/* 05. CARD GRIDS — STAGGERED ENTRANCES                               */
+/* 06. PROCESS — MISSION TIMELINE                                     */
+/*     Route line extends from center, nodes boot in sequence, icons  */
+/*     stamp down, a gold runner sweeps the route once.               */
 /* ------------------------------------------------------------------ */
-html.js-anim .services-grid-8:not(.is-in) > *,
-html.js-anim .process-steps-grid:not(.is-in) > *,
-html.js-anim .featured-grid-4:not(.is-in) > *,
-html.js-anim .departments-grid-6:not(.is-in) > *,
-html.js-anim .benefits-grid-6:not(.is-in) > *,
-html.js-anim .stats-grid-4:not(.is-in) > *,
-html.js-anim .security-flow-wrap:not(.is-in) > *,
-html.js-anim .categories-grid:not(.is-in) > * {
+.process-section {
+  position: relative;
+  overflow: hidden;
+}
+
+html.js-anim .process-section:not(.is-in) .process-step-node {
   opacity: 0;
 }
 
-/* Core services — alternating 3D flips */
-html.js-anim .services-grid-8.is-in > * {
-  animation: aaCardFlip 0.95s var(--aa-ease-out) calc(var(--i, 0) * 90ms) backwards;
+html.js-anim .process-section .process-line-bg {
+  transform: scaleX(0);
+  transform-origin: center center;
+  transition: transform 1s var(--aa-inout) 0.15s;
 }
 
-/* Process steps — elastic pops */
-html.js-anim .process-steps-grid.is-in > * {
-  animation: aaProcessPop 0.8s var(--aa-spring) calc(var(--i, 0) * 140ms) backwards;
+html.js-anim .process-section.is-in .process-line-bg {
+  transform: scaleX(1);
 }
 
-/* Featured services — diagonal clip wipes */
-html.js-anim .featured-grid-4.is-in > * {
-  animation: aaCardWipe 0.95s var(--aa-ease-inout) calc(var(--i, 0) * 130ms) backwards;
+html.js-anim .process-section.is-in .process-step-node {
+  animation: aaBootNode 0.7s var(--aa-lock) calc(var(--i, 0) * 0.16s + 0.2s) backwards;
+}
+
+@keyframes aaBootNode {
+  0%   { opacity: 0; transform: translateY(40px) scale(0.72); }
+  70%  { opacity: 1; transform: translateY(-5px) scale(1.04); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+html.js-anim .process-section.is-in .node-number .material-symbols-outlined {
+  display: inline-block;
+  animation: aaStamp 0.45s var(--aa-lock) calc(var(--i, 0) * 0.16s + 0.55s) backwards;
+}
+
+@keyframes aaStamp {
+  0%   { transform: scale(2.4) rotate(-18deg); opacity: 0; }
+  60%  { transform: scale(0.95) rotate(3deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+html.js-anim .process-section .cine-runner {
+  position: absolute;
+  top: 36px;
+  left: 5%;
+  width: 34px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, transparent, var(--aa-gold) 40%, #fff 85%, transparent);
+  box-shadow: 0 0 12px 2px var(--aa-gold-60);
+  transform: translateX(0);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+html.js-anim .process-section.is-in .cine-runner {
+  animation: aaRunner 2.6s var(--aa-inout) 0.4s forwards;
+}
+
+@keyframes aaRunner {
+  0%   { transform: translateX(0); opacity: 0; }
+  6%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { transform: translateX(var(--aa-route, 90%)); opacity: 0; }
+}
+
+/* ------------------------------------------------------------------ */
+/* 07. FEATURED SERVICES — PAPER-THEATER SHUTTERS                     */
+/*     A navy shutter with gold seam-light collapses off each card.   */
+/* ------------------------------------------------------------------ */
+html.js-anim .featured-grid-4 > * {
+  position: relative;
+  overflow: hidden;
+}
+
+html.js-anim .featured-grid-4 .cine-shutter {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+  overflow: hidden;
+  transform-origin: top center;
+  pointer-events: none;
+  z-index: 6;
+}
+
+html.js-anim .featured-grid-4 .cine-shutter::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg,
+    transparent 0 18%,
+    var(--aa-gold-60) 18% 18.4%,
+    transparent 18.4% 24.7%);
+  opacity: 0.9;
+}
+
+html.js-anim .featured-grid-4 [data-cine-child="shutter"]:not(.is-in) .cine-shutter {
+  transform: scaleY(1);
+}
+
+html.js-anim .featured-grid-4 [data-cine-child="shutter"].is-in .cine-shutter {
+  animation: aaShutterFall 0.9s var(--aa-sheet) calc(var(--i, 0) * 0.14s) forwards;
+}
+
+@keyframes aaShutterFall {
+  0%   { transform: scaleY(1); }
+  100% { transform: scaleY(0); }
 }
 
 html.js-anim .featured-grid-4 .feature-card-badge {
   opacity: 0;
 }
 
-html.js-anim .featured-grid-4.is-in .feature-card-badge {
-  animation: aaBadgeStamp 0.55s var(--aa-spring) calc(var(--i, 0) * 130ms + 0.55s) backwards;
+html.js-anim .featured-grid-4 [data-cine-child="shutter"].is-in .feature-card-badge {
+  animation: aaBadge 0.5s var(--aa-lock) calc(var(--i, 0) * 0.14s + 0.85s) forwards;
 }
 
-/* Departments — alternating tilt-rise */
-html.js-anim .departments-grid-6.is-in > * {
-  animation: aaDeptRise 0.85s var(--aa-ease-out) calc(var(--i, 0) * 100ms) backwards;
-}
-
-/* Benefits — blur-scale cascade */
-html.js-anim .benefits-grid-6.is-in > * {
-  animation: aaBlurIn 0.75s var(--aa-ease-out) calc(var(--i, 0) * 110ms) backwards;
-}
-
-/* Category pills — elastic pops */
-html.js-anim .categories-grid.is-in > * {
-  animation: aaPillPop 0.6s var(--aa-spring) calc(var(--i, 0) * 55ms) backwards;
-}
-
-/* Search panel — 3D flip-up */
-html.js-anim .search-panel-box.is-in {
-  animation: aaPanelFlip 1s var(--aa-spring) backwards;
-}
-
-/* Action button rows (hero + final CTA) — container triggers children */
-html.js-anim .hero-actions:not(.is-in) > .btn,
-html.js-anim .final-cta-actions:not(.is-in) > .btn {
-  opacity: 0;
-}
-
-html.js-anim .hero-actions.is-in > .btn,
-html.js-anim .final-cta-actions.is-in > .btn {
-  animation: aaPop 0.65s var(--aa-spring) calc(var(--i, 0) * 120ms + 0.35s) backwards;
+@keyframes aaBadge {
+  0%   { opacity: 0; transform: scale(0) rotate(-12deg); }
+  70%  { opacity: 1; transform: scale(1.08) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
 }
 
 /* ------------------------------------------------------------------ */
-/* 06. PROCESS SECTION — LINE DRAW + NODE PULSE                       */
+/* 08. DEPARTMENTS — LEDGER CAROUSEL                                  */
+/*     Cards wipe in (03a); the department number rises in a mask.    */
 /* ------------------------------------------------------------------ */
-.process-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(50% 60% at 50% 40%, rgba(201, 162, 39, 0.07) 0%, transparent 70%);
-  pointer-events: none;
+html.js-anim .departments-grid-6 [data-cine-child="ledger"].is-in .dept-number {
+  display: inline-block;
+  animation: aaNumRise 0.55s var(--aa-out) calc(var(--i, 0) * 80ms + 0.35s) backwards;
 }
 
-html.js-anim .process-line-bg {
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 1.1s var(--aa-ease-inout) 0.15s;
-}
-
-html.js-anim .process-line-bg.is-in {
-  transform: scaleX(1);
-}
-
-html.js-anim .process-steps-grid.is-in .node-number {
-  animation: aaPulseNode 3.2s var(--aa-ease-inout) calc(var(--i, 0) * 0.28s) infinite;
-}
-
-@keyframes aaPulseNode {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.35); }
-  50%      { box-shadow: 0 0 0 14px rgba(201, 162, 39, 0); }
+@keyframes aaNumRise {
+  from { transform: translateY(105%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
 }
 
 /* ------------------------------------------------------------------ */
-/* 07. STATS — SHOCKWAVE RINGS BEHIND COUNTERS                        */
+/* 09. BENEFITS — ROTOR ICONS                                         */
+/*     Cards wipe in (03a); each icon spins on like a gauge needle.   */
+/* ------------------------------------------------------------------ */
+html.js-anim .benefits-grid-6 [data-cine-child="ledger"].is-in .benefit-icon .material-symbols-outlined {
+  display: inline-block;
+  animation: aaRotor 0.8s var(--aa-out) calc(var(--i, 0) * 80ms + 0.2s) backwards;
+}
+
+@keyframes aaRotor {
+  0%   { transform: rotate(-140deg) scale(0.3); opacity: 0; }
+  60%  { transform: rotate(12deg) scale(1.1); opacity: 1; }
+  100% { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+
+/* ------------------------------------------------------------------ */
+/* 10. STATISTICS — SEISMOGRAPH                                       */
+/*     Gold tick-rules shoot out from each counter, digits lock in.   */
 /* ------------------------------------------------------------------ */
 .stat-box {
   position: relative;
 }
 
-html.js-anim .stats-grid-4.is-in > * {
-  animation: aaStatZoom 0.75s var(--aa-spring) calc(var(--i, 0) * 130ms) backwards;
-}
-
-html.js-anim .stats-grid-4.is-in .stat-box::before,
-html.js-anim .stats-grid-4.is-in .stat-box::after {
+html.js-anim .stat-box::before,
+html.js-anim .stat-box::after {
   content: '';
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--aa-gold), transparent);
+  opacity: 0;
   pointer-events: none;
+  z-index: 0;
 }
 
-html.js-anim .stats-grid-4.is-in .stat-box::before {
-  border: 2px solid rgba(201, 162, 39, 0.55);
-  animation: aaShockwave 1.3s var(--aa-ease-out) calc(var(--i, 0) * 0.15s) forwards;
+html.js-anim .stat-box.is-in::before {
+  animation: aaTickL 0.9s var(--aa-out) calc(var(--i, 0) * 0.12s) backwards,
+             aaTickFade 0.9s ease calc(var(--i, 0) * 0.12s + 0.9s) forwards;
 }
 
-html.js-anim .stats-grid-4.is-in .stat-box::after {
-  border: 1px solid rgba(245, 241, 232, 0.5);
-  animation: aaShockwave 1.3s var(--aa-ease-out) calc(var(--i, 0) * 0.15s + 0.25s) forwards;
+html.js-anim .stat-box.is-in::after {
+  animation: aaTickR 0.9s var(--aa-out) calc(var(--i, 0) * 0.12s) backwards,
+             aaTickFade 0.9s ease calc(var(--i, 0) * 0.12s + 0.9s) forwards;
 }
 
-@keyframes aaShockwave {
-  from { width: 10px; height: 10px; opacity: 0.9; }
-  to   { width: 260px; height: 260px; opacity: 0; }
+@keyframes aaTickL {
+  0%   { width: 0; opacity: 0; transform: translate(-100%, -50%); }
+  15%  { opacity: 1; }
+  100% { width: min(42vw, 220px); opacity: 1; transform: translate(calc(-100% - 8px), -50%); }
+}
+
+@keyframes aaTickR {
+  0%   { width: 0; opacity: 0; transform: translate(0, -50%); }
+  15%  { opacity: 1; }
+  100% { width: min(42vw, 220px); opacity: 1; transform: translate(8px, -50%); }
+}
+
+@keyframes aaTickFade {
+  to { opacity: 0; }
+}
+
+html.js-anim .stat-box.is-in .stat-value {
+  display: inline-block;
+  animation: aaTypeLock 0.5s var(--aa-lock) calc(var(--i, 0) * 0.12s) backwards;
+}
+
+@keyframes aaTypeLock {
+  0%   { transform: translateY(14px); opacity: 0; filter: blur(3px); }
+  100% { transform: translateY(0); opacity: 1; filter: blur(0); }
 }
 
 /* ------------------------------------------------------------------ */
-/* 08. SECURITY — ENTRANCE + BORDER GLOW + FLOWING CONNECTOR          */
+/* 11. SECURITY — TRANSMISSION LINK                                   */
+/*     Signal rings expand per node; a data packet travels the chain. */
 /* ------------------------------------------------------------------ */
-html.js-anim .security-flow-wrap.is-in > * {
-  animation: aaSecurityPop 0.75s var(--aa-spring) calc(var(--i, 0) * 150ms) backwards;
+.security-flow-wrap {
+  position: relative;
+  overflow: hidden;
 }
 
 .security-step-card {
@@ -465,326 +525,384 @@ html.js-anim .security-flow-wrap.is-in > * {
   z-index: 1;
 }
 
-html.js-anim .security-flow-wrap.is-in .security-step-card::before {
+html.js-anim .security-flow-wrap [data-cine-child="ledger"].is-in::after {
   content: '';
   position: absolute;
-  inset: -1.5px;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, rgba(201, 162, 39, 0) 0%, rgba(201, 162, 39, 0.55) 50%, rgba(201, 162, 39, 0) 100%);
+  inset: 12%;
+  border-radius: 50%;
+  border: 2px solid var(--aa-gold);
   opacity: 0;
-  animation: aaBorderGlow 1.4s var(--aa-ease-out) calc(var(--i, 0) * 150ms) forwards;
   pointer-events: none;
-  z-index: -1;
+  animation: aaRing 1s var(--aa-out) calc(var(--i, 0) * 0.18s) forwards;
 }
 
-@keyframes aaBorderGlow {
-  0%   { opacity: 0; transform: scale(0.94); }
-  40%  { opacity: 1; }
-  100% { opacity: 0; transform: scale(1); }
+@keyframes aaRing {
+  0%   { transform: scale(0.3); opacity: 0.8; }
+  100% { transform: scale(1.9); opacity: 0; }
 }
 
-@media (min-width: 1025px) {
-  .security-flow-wrap[data-connector-ready]::after {
-    content: '';
-    position: absolute;
-    top: 96px;
-    left: 4%;
-    width: 92%;
-    height: 2px;
-    background: repeating-linear-gradient(
-      90deg,
-      rgba(201, 162, 39, 0.5) 0 14px,
-      transparent 14px 26px
-    );
-    background-size: 52px 2px;
-    animation: aaDashFlow 1.2s linear infinite;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.6;
-  }
+html.js-anim .security-flow-wrap .cine-packet {
+  position: absolute;
+  top: 96px;
+  left: 4%;
+  width: 12px;
+  height: 12px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--aa-gold);
+  box-shadow: 0 0 14px 4px var(--aa-gold-60), 0 0 4px 1px #fff;
+  transform: translateX(0);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
 }
 
-@keyframes aaDashFlow {
-  to { background-position: 52px 0; }
+html.js-anim .security-flow-wrap.is-in .cine-packet {
+  animation: aaPacket 2.4s var(--aa-inout) 0.7s infinite;
+}
+
+@keyframes aaPacket {
+  0%   { transform: translateX(0); opacity: 0; }
+  6%   { opacity: 1; }
+  50%  { transform: translateX(var(--aa-chain, 90%)); opacity: 1; }
+  54%  { opacity: 0; }
+  100% { transform: translateX(var(--aa-chain, 90%)); opacity: 0; }
 }
 
 /* ------------------------------------------------------------------ */
-/* 09. TESTIMONIALS — SLIDE-CHANGE CHOREOGRAPHY                       */
+/* 12. TESTIMONIALS — CLIPBOARD SLATE                                 */
+/*     Restarts every time the section re-enters the viewport.        */
 /* ------------------------------------------------------------------ */
-html.js-anim .testimonial-slide.is-active .testimonial-quote {
-  animation: aaQuoteRise 0.7s var(--aa-ease-out) both;
+html.js-anim .carousel-outer.is-in .testimonial-slide.is-active .testimonial-quote {
+  animation: aaTypeSet 0.6s var(--aa-out) 0.05s backwards;
 }
 
-html.js-anim .testimonial-slide.is-active .citizen-avatar {
-  animation: aaAvatarIn 0.65s var(--aa-spring) both;
+html.js-anim .carousel-outer.is-in .testimonial-slide.is-active .citizen-avatar {
+  animation: aaIdPhoto 0.55s var(--aa-lock) backwards;
 }
 
-html.js-anim .testimonial-slide.is-active .citizen-meta {
-  animation: aaQuoteRise 0.7s var(--aa-ease-out) 0.15s both;
+html.js-anim .carousel-outer.is-in .testimonial-slide.is-active .citizen-meta {
+  animation: aaTypeSet 0.6s var(--aa-out) 0.15s backwards;
 }
 
-@keyframes aaQuoteRise {
-  from { opacity: 0; transform: translateY(22px); }
+@keyframes aaTypeSet {
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes aaAvatarIn {
-  from { opacity: 0; transform: scale(0.4) rotate(-12deg); }
-  to   { opacity: 1; transform: scale(1) rotate(0deg); }
+@keyframes aaIdPhoto {
+  0%   { opacity: 0; transform: scale(0.4) rotate(-10deg); filter: saturate(0) brightness(1.6); }
+  60%  { opacity: 1; filter: saturate(1) brightness(1); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); filter: none; }
 }
 
 /* ------------------------------------------------------------------ */
-/* 10. FINAL CTA — LIGHT BEAM SWEEP                                   */
+/* 13. FINAL CTA — PROJECTOR BEAM                                     */
 /* ------------------------------------------------------------------ */
+.final-cta-section {
+  position: relative;
+  overflow: hidden;
+}
+
 .final-cta-section::before {
   content: '';
   position: absolute;
   top: 0;
+  bottom: 0;
   left: -30%;
-  width: 45%;
-  height: 100%;
-  background: linear-gradient(
-    100deg,
+  width: 40%;
+  background: linear-gradient(100deg,
     transparent 0%,
-    rgba(245, 241, 232, 0.06) 40%,
-    rgba(201, 162, 39, 0.14) 50%,
-    rgba(245, 241, 232, 0.06) 60%,
-    transparent 100%
-  );
-  transform: skewX(-18deg);
-  animation: aaBeamSweep 7s var(--aa-ease-inout) infinite;
+    rgba(245, 241, 232, 0.05) 35%,
+    var(--aa-gold-18) 50%,
+    rgba(245, 241, 232, 0.05) 65%,
+    transparent 100%);
+  transform: skewX(-16deg);
+  animation: aaBeam 6.5s var(--aa-inout) infinite;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
-@keyframes aaBeamSweep {
+@keyframes aaBeam {
   0%   { left: -35%; opacity: 0; }
-  12%  { opacity: 1; }
-  45%  { left: 115%; opacity: 1; }
-  46%  { opacity: 0; }
-  100% { left: 115%; opacity: 0; }
+  10%  { opacity: 1; }
+  50%  { left: 110%; opacity: 1; }
+  52%  { opacity: 0; }
+  100% { left: 110%; opacity: 0; }
 }
 
 /* ------------------------------------------------------------------ */
-/* 11. FOOTER — STAGGERED COLUMNS + GOLD DUST + UNDERLINE DRAW        */
+/* 14. FOOTER — MASTHEAD MECHANICS                                    */
 /* ------------------------------------------------------------------ */
 .site-footer {
   position: relative;
   overflow: hidden;
 }
 
-.site-footer .aa-particles {
-  z-index: 0;
-}
-
-.site-footer .aa-particle {
-  width: 5px;
-  height: 5px;
-  background: rgba(201, 162, 39, 0.55);
-  box-shadow: 0 0 8px 1px rgba(201, 162, 39, 0.35);
-}
-
-.site-footer .container {
-  position: relative;
-  z-index: 1;
-}
-
-html.js-anim .footer-grid > *:not(.is-in) {
-  opacity: 0;
-}
-
-html.js-anim .footer-grid > *.is-in {
-  animation: aaRise 0.75s var(--aa-ease-out) calc(var(--i, 0) * 110ms) backwards;
-}
-
 .footer-col h4 {
   position: relative;
 }
 
-.footer-col h4::after {
+html.js-anim .footer-grid [data-cine-child="ledger"].is-in h4::after {
   content: '';
   position: absolute;
   left: 0;
   bottom: -6px;
-  width: 0;
   height: 2px;
-  background: var(--secondary);
-  transition: width 0.9s var(--aa-ease-inout) 0.35s;
+  width: 100%;
+  background: var(--aa-gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: aaUnderscore 0.6s var(--aa-out) 0.4s forwards;
 }
 
-.footer-col.is-in h4::after {
-  width: 34px;
+@keyframes aaUnderscore {
+  to { transform: scaleX(1); }
 }
 
-.footer-bottom {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.8s var(--aa-ease-out), transform 0.8s var(--aa-ease-out) 0.2s;
+/* credit bar: footer bottom splits open from the center */
+html.js-anim .footer-bottom {
+  clip-path: inset(0 50% 0 50%);
+  transition: clip-path 0.9s var(--aa-inout) 0.3s;
 }
 
-.footer-bottom.is-in {
-  opacity: 1;
-  transform: none;
-}
-
-html:not(.js-anim) .footer-bottom {
-  opacity: 1;
-  transform: none;
+html.js-anim .footer-bottom.is-in {
+  clip-path: inset(0 0 0 0);
 }
 
 /* ------------------------------------------------------------------ */
-/* 12. PAGE HERO (ABOUT) — ANIMATED GOLD TICKER RULE                  */
+/* 15. EDITORIAL PANELS — SPLIT REVEAL                                */
+/*     A solid panel with a glowing gold spine slides off images and  */
+/*     auth banners (page heroes, editorial grids, login/register).   */
 /* ------------------------------------------------------------------ */
-.page-hero-dark {
+html.js-anim [data-cine="editorial"] {
   position: relative;
   overflow: hidden;
 }
 
-.page-hero-dark::after {
+html.js-anim [data-cine="editorial"] .cine-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  background: var(--aa-panel, var(--primary));
+  transform: scaleX(1);
+  pointer-events: none;
+}
+
+html.js-anim [data-cine="editorial"] .cine-panel::before {
   content: '';
   position: absolute;
+  top: 0;
   bottom: 0;
-  left: 0;
-  height: 3px;
-  width: 100%;
-  background: linear-gradient(90deg, var(--secondary) 0%, rgba(201, 162, 39, 0.15) 50%, var(--secondary) 100%);
-  background-size: 220% 100%;
-  animation: aaTickerRule 6s linear infinite;
+  width: 4px;
+  background: var(--aa-gold);
+  box-shadow: 0 0 18px 3px var(--aa-gold-60);
 }
 
-@keyframes aaTickerRule {
-  0%   { background-position: 0% 0; }
-  100% { background-position: 220% 0; }
+/* default: panel slides away to the left (image revealed from right) */
+html.js-anim [data-cine="editorial"].is-in .cine-panel {
+  transform-origin: left center;
+  animation: aaPanelOutL 1s var(--aa-sheet) forwards;
+}
+
+html.js-anim [data-cine="editorial"] .cine-panel::before { right: 0; }
+
+/* mirrored variant */
+html.js-anim [data-cine="editorial"].dir-left.is-in .cine-panel {
+  transform-origin: right center;
+  animation-name: aaPanelOutR;
+}
+
+html.js-anim [data-cine="editorial"].dir-left .cine-panel::before { right: auto; left: 0; }
+
+@keyframes aaPanelOutL {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
+
+@keyframes aaPanelOutR {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
+
+html.js-anim [data-cine="editorial"].is-in .cine-panel::before {
+  animation: aaSpineFade 1s var(--aa-sheet) forwards;
+}
+
+@keyframes aaSpineFade {
+  0%, 55% { opacity: 1; }
+  100%    { opacity: 0; }
+}
+
+/* auth banners get a gold shutter instead of navy */
+.auth-banner-side {
+  --aa-panel: var(--secondary-dark);
 }
 
 /* ------------------------------------------------------------------ */
-/* 13. LEGACY REVEAL COMPATIBILITY                                    */
-/*     Elements carrying both legacy .reveal and data-anim are fully  */
-/*     owned by this engine; the rest keep the old system.            */
+/* 16. SEARCH PANEL — single ledger wipe                              */
 /* ------------------------------------------------------------------ */
-html.js-anim [data-anim].reveal,
-html.js-anim [data-anim].reveal-left,
-html.js-anim [data-anim].reveal-right,
-html.js-anim [data-anim].reveal-scale,
-html.js-anim [data-anim].reveal-clip {
-  transform: none;
-  transition: none;
+html.js-anim .search-panel-box {
+  position: relative;
 }
 
-html.js-anim .reveal:not([data-anim]).is-revealed,
-html.js-anim .reveal-left:not([data-anim]).is-revealed,
-html.js-anim .reveal-right:not([data-anim]).is-revealed,
-html.js-anim .reveal-scale:not([data-anim]).is-revealed,
-html.js-anim .reveal-clip:not([data-anim]).is-revealed {
-  opacity: 1 !important;
-  transform: none !important;
+html.js-anim .search-panel-box.is-in {
+  animation: aaLedgerWipe 0.9s var(--aa-out) backwards;
 }
 
 /* ------------------------------------------------------------------ */
-/* 14. SCROLL PROGRESS BAR                                            */
+/* 16b. DASHBOARD PANES — replay on every pane switch                 */
 /* ------------------------------------------------------------------ */
-.aa-scroll-progress {
+html.js-anim [data-cine-bars] .chart-bar {
+  height: 0 !important;
+  transition: height 0.9s var(--aa-out) calc(var(--i, 0) * 60ms);
+}
+
+html.js-anim [data-cine-bars].is-in .chart-bar {
+  height: var(--h, 50%);
+}
+
+/* 404 error code stamps in with the card */
+html.js-anim .error-card-panel.is-in .error-code-big {
+  animation: aaStamp 0.5s var(--aa-lock) 0.45s backwards;
+}
+
+/* ------------------------------------------------------------------ */
+/* 17. PAGE-LEVEL ATMOSPHERICS                                        */
+/* ------------------------------------------------------------------ */
+
+/* 17a. Broadcast progress bar */
+.aa-progress {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, var(--secondary) 0%, var(--secondary-light) 100%);
+  background: linear-gradient(90deg, var(--aa-gold) 0%, #e4c45b 100%);
   transform: scaleX(0);
   transform-origin: left center;
-  z-index: 2000;
+  z-index: 2100;
   pointer-events: none;
 }
 
+/* 17b. Gold dust motes (hero + footer) */
+.aa-motes {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.aa-mote {
+  position: absolute;
+  bottom: -12px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--aa-cream-70);
+  box-shadow: 0 0 8px 2px var(--aa-gold-35);
+  opacity: 0;
+  animation: aaMoteRise var(--m-dur, 12s) var(--m-delay, 0s) linear infinite;
+}
+
+.aa-mote.aa-gold {
+  background: var(--aa-gold-60);
+}
+
+@keyframes aaMoteRise {
+  0%   { transform: translate3d(0, 0, 0) scale(0.5); opacity: 0; }
+  8%   { opacity: 0.8; }
+  50%  { transform: translate3d(var(--m-sway, 30px), calc(-50vh - 30px), 0) scale(1); }
+  92%  { opacity: 0.6; }
+  100% { transform: translate3d(calc(var(--m-sway, 30px) * -0.6), -110vh, 0) scale(0.4); opacity: 0; }
+}
+
 /* ------------------------------------------------------------------ */
-/* 15. MOBILE TUNING (≤768px)                                         */
+/* 18. MOBILE TUNING (≤ 768px) — same grammar, tighter physics        */
 /* ------------------------------------------------------------------ */
 @media (max-width: 768px) {
-  .hero-float-card {
-    animation: none;
+  html.js-anim [data-cine="mask-words"] .cine-word {
+    transition-duration: 0.75s;
+    transition-delay: calc(var(--w, 0) * 50ms);
   }
 
-  html.js-anim .services-grid-8.is-in > * {
-    animation-name: aaRise;
+  /* single-column layouts: circuits and route hardware come down */
+  html.js-anim .services-section .cine-circuit,
+  html.js-anim .process-section .cine-runner,
+  html.js-anim .security-flow-wrap .cine-packet {
+    display: none;
+  }
+
+  html.js-anim [data-cine-child="ledger"].is-in {
+    animation-duration: 0.65s;
+  }
+
+  html.js-anim .featured-grid-4 [data-cine-child="shutter"].is-in .cine-shutter {
     animation-duration: 0.7s;
   }
 
-  html.js-anim .search-panel-box.is-in {
-    animation-name: aaRise;
-    animation-duration: 0.8s;
+  html.js-anim .featured-grid-4 [data-cine-child="shutter"].is-in .feature-card-badge {
+    animation-delay: calc(var(--i, 0) * 0.14s + 0.65s);
   }
 
-  html.js-anim [data-anim="words"] .anim-child {
-    transition-delay: calc(var(--w, 0) * 45ms);
+  .aa-mote {
+    width: 4px;
+    height: 4px;
   }
-
-  .aa-particle {
-    width: 5px !important;
-    height: 5px !important;
-  }
-
-  html.js-anim .stats-grid-4.is-in .stat-box::before,
-  html.js-anim .stats-grid-4.is-in .stat-box::after {
-    animation-name: aaShockwaveMobile;
-  }
-}
-
-@keyframes aaShockwaveMobile {
-  from { width: 10px; height: 10px; opacity: 0.9; }
-  to   { width: 170px; height: 170px; opacity: 0; }
 }
 
 /* ------------------------------------------------------------------ */
-/* 16. REDUCED MOTION — ALL EFFECTS OFF, CONTENT VISIBLE              */
+/* 19. REDUCED MOTION — STATIC FRAME, EVERYTHING READABLE             */
 /* ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
-  html.js-anim [data-anim]:not(.is-in),
-  html.js-anim [data-anim-clip]:not(.is-in),
-  html.js-anim .services-grid-8:not(.is-in) > *,
-  html.js-anim .process-steps-grid:not(.is-in) > *,
-  html.js-anim .featured-grid-4:not(.is-in) > *,
-  html.js-anim .departments-grid-6:not(.is-in) > *,
-  html.js-anim .benefits-grid-6:not(.is-in) > *,
-  html.js-anim .stats-grid-4:not(.is-in) > *,
-  html.js-anim .security-flow-wrap:not(.is-in) > *,
-  html.js-anim .categories-grid:not(.is-in) > *,
-  html.js-anim .footer-grid > *:not(.is-in),
-  html.js-anim .hero-actions:not(.is-in) > .btn,
-  html.js-anim .final-cta-actions:not(.is-in) > .btn {
+  html.js-anim [data-cine]:not(.is-in),
+  html.js-anim [data-cine-child]:not(.is-in),
+  html.js-anim .cine-owned:not(.is-in),
+  html.js-anim .process-section:not(.is-in) .process-step-node,
+  html.js-anim .featured-grid-4 .feature-card-badge {
     opacity: 1 !important;
   }
 
-  .hero::before,
-  .aa-particles,
-  .aa-particle,
-  .final-cta-section::before,
-  .page-hero-dark::after,
-  .hero-float-card,
-  .security-flow-wrap[data-connector-ready]::after,
-  html.js-anim [data-anim].is-in,
-  html.js-anim [data-anim-clip].is-in,
-  html.js-anim [data-anim="words"] .anim-child,
-  html.js-anim .featured-grid-4.is-in .feature-card-badge,
-  html.js-anim .process-steps-grid.is-in .node-number,
-  html.js-anim .stats-grid-4.is-in .stat-box::before,
-  html.js-anim .stats-grid-4.is-in .stat-box::after,
-  html.js-anim .security-flow-wrap.is-in .security-step-card::before,
-  html.js-anim .testimonial-slide.is-active .testimonial-quote,
-  html.js-anim .testimonial-slide.is-active .citizen-avatar,
-  html.js-anim .testimonial-slide.is-active .citizen-meta {
+  html.js-anim [data-cine="mask-words"] .cine-word,
+  html.js-anim [data-cine="signal"] {
+    transform: none !important;
+    transition: none !important;
+    letter-spacing: inherit !important;
+  }
+
+  html.js-anim [data-cine="signal"]::after,
+  html.js-anim [data-cine="scan"]::before,
+  html.js-anim .cine-circuit,
+  html.js-anim .process-section .cine-runner,
+  html.js-anim .security-flow-wrap .cine-packet,
+  html.js-anim .final-cta-section::before,
+  .aa-motes,
+  .aa-progress,
+  html.js-anim .featured-grid-4 .cine-shutter,
+  html.js-anim [data-cine="editorial"] .cine-panel {
+    display: none !important;
+  }
+
+  html.js-anim [data-cine].is-in,
+  html.js-anim [data-cine].is-in *,
+  html.js-anim [data-cine-child].is-in,
+  html.js-anim [data-cine-child].is-in *,
+  html.js-anim .cine-owned.is-in,
+  html.js-anim .process-section.is-in .process-step-node,
+  html.js-anim .stat-box.is-in .stat-value,
+  html.js-anim .footer-bottom.is-in {
     animation: none !important;
     transition: none !important;
   }
 
-  html.js-anim [data-anim="words"] .anim-child {
-    transform: none !important;
+  html.js-anim [data-cine="scan"].is-in,
+  html.js-anim .footer-bottom {
+    clip-path: none !important;
   }
 
-  html.js-anim [data-anim-clip]::after {
-    display: none;
-  }
-
-  .aa-scroll-progress {
-    display: none;
+  html.js-anim [data-cine-bars] .chart-bar {
+    height: auto !important;
+    transition: none !important;
   }
 }

@@ -102,14 +102,21 @@
 
       // Close mobile sidebar if open
       const sidebar = document.querySelector('[data-dashboard-sidebar]');
+      const activeOverlay = document.querySelector('[data-sidebar-overlay]');
       if (sidebar && sidebar.classList.contains('is-open')) {
         sidebar.classList.remove('is-open');
         document.body.classList.remove('sidebar-open');
+        if (activeOverlay) activeOverlay.classList.remove('is-open');
       }
 
-      // Scroll smoothly to top of dashboard content
-      const dashMain = document.querySelector('.dashboard-content');
-      if (dashMain) dashMain.scrollTop = 0;
+      // Reset the scroll position so every pane opens at its own top.
+      // The vertical scroll container is .dashboard-main-area (the sticky
+      // topbar / sidebar stay pinned while the pane content scrolls).
+      const dashMain = document.querySelector('.dashboard-main-area');
+      if (dashMain) {
+        dashMain.scrollTop = 0;
+        dashMain.scrollLeft = 0;
+      }
     }
 
     navLinks.forEach(link => {
@@ -152,14 +159,16 @@
     if (!toggleBtn || !sidebar) return;
 
     toggleBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('is-open');
-      document.body.classList.toggle('sidebar-open');
+      const isOpen = sidebar.classList.toggle('is-open');
+      document.body.classList.toggle('sidebar-open', isOpen);
+      if (overlay) overlay.classList.toggle('is-open', isOpen);
     });
 
     if (overlay) {
       overlay.addEventListener('click', () => {
         sidebar.classList.remove('is-open');
         document.body.classList.remove('sidebar-open');
+        overlay.classList.remove('is-open');
       });
     }
   }
