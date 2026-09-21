@@ -494,3 +494,35 @@
     initBackToTop();
   });
 })();
+
+
+const searchInput = document.getElementById("service-search");
+  const searchBtn = document.getElementById("search-btn");
+  const searchError = document.getElementById("search-error");
+
+  searchBtn.addEventListener("click", function () {
+    const value = searchInput.value.trim();
+
+    if (value.length === 0) {
+      // Show error
+      searchError.style.display = "block";
+      searchInput.classList.add("error");
+      return;
+    }
+
+    // Hide error
+    searchError.style.display = "none";
+    searchInput.classList.remove("error");
+
+    // Redirect
+    window.location.href = "404.html";
+    value = "";
+  });
+
+  // Remove error while typing
+  searchInput.addEventListener("input", function () {
+    if (searchInput.value.trim().length > 0) {
+      searchError.style.display = "none";
+      searchInput.classList.remove("error");
+    }
+  });

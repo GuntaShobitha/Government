@@ -146,13 +146,39 @@
             <p class="lead-text" style="margin-top: 0.5rem;">Instant access to verified civic documentation, applications, and department portals.</p>
           </div>
 
-          <div class="search-input-wrap">
+          <!-- <div class="search-input-wrap">
             <span class="material-symbols-outlined">search</span>
             <input type="text" id="service-search" placeholder="Search by service name, document title, or department..." autocomplete="off">
             <button class="btn btn-primary" style="padding: 0.5rem 1.25rem; font-size: 0.875rem;">
               Search <span class="material-symbols-outlined"></span>
             </button>
-          </div>
+          </div> -->
+
+          <div class="search-input-wrap">
+  <span class="material-symbols-outlined">search</span>
+
+  <input
+    type="text"
+    id="service-search"
+    placeholder="Search by service name, document title, or department..."
+    autocomplete="off"
+  >
+
+  <button
+    type="button"
+    id="search-btn"
+    class="btn btn-primary"
+    style="padding: 0.5rem 1.25rem; font-size: 0.875rem;"
+  >
+    Search
+    <span class="material-symbols-outlined"></span>
+  </button>
+</div>
+
+<!-- Error message -->
+<div id="search-error" style="color: red; display: none; margin-top: 5px;">
+  Please enter a search term.
+</div>
           <p style="font-size: 0.8125rem; color: var(--primary-70); margin-top: 0.75rem; text-align: right;" data-service-count>Showing all 8 core categories</p>
         </div>
 
@@ -217,6 +243,9 @@
           <!-- 1. Citizen Services -->
           <div class="service-card-3d reveal" data-tilt data-service-card data-category="citizen">
             <div>
+              <div class="service-card-media">
+                <img src="./images/service-card-citizen.webp" alt="Citizens engaging with public community services" width="640" height="420" loading="lazy">
+              </div>
               <div class="service-card-icon">
                 <span class="material-symbols-outlined">groups</span>
               </div>
@@ -229,6 +258,9 @@
           <!-- 2. Digital Certificates -->
           <div class="service-card-3d reveal delay-1" data-tilt data-service-card data-category="certificates">
             <div>
+              <div class="service-card-media">
+                <img src="./images/service-card-certificates.webp" alt="Official digital certificates with certified seal" width="640" height="420" loading="lazy">
+              </div>
               <div class="service-card-icon">
                 <span class="material-symbols-outlined">verified</span>
               </div>
@@ -241,6 +273,9 @@
           <!-- 3. Identity Services -->
           <div class="service-card-3d reveal delay-2" data-tilt data-service-card data-category="identity">
             <div>
+              <div class="service-card-media">
+                <img src="./images/service-card-identity.webp" alt="Secure biometric identity verification" width="640" height="420" loading="lazy">
+              </div>
               <div class="service-card-icon">
                 <span class="material-symbols-outlined">fingerprint</span>
               </div>
@@ -253,6 +288,9 @@
           <!-- 4. Tax Services -->
           <div class="service-card-3d reveal delay-3" data-tilt data-service-card data-category="tax">
             <div>
+              <div class="service-card-media">
+                <img src="./images/service-card-tax.webp" alt="Tax payments and public treasury finance" width="640" height="420" loading="lazy">
+              </div>
               <div class="service-card-icon">
                 <span class="material-symbols-outlined">account_balance</span>
               </div>
@@ -265,6 +303,9 @@
           <!-- 5. Education Services -->
           <div class="service-card-3d reveal" data-tilt data-service-card data-category="education">
             <div>
+              <div class="service-card-media">
+                <img src="./images/service-card-education.webp" alt="Graduation cap and open book for public education services" width="640" height="420" loading="lazy">
+              </div>
               <div class="service-card-icon">
                 <span class="material-symbols-outlined">school</span>
               </div>
@@ -277,6 +318,9 @@
           <!-- 6. Employment Services -->
           <div class="service-card-3d reveal delay-1" data-tilt data-service-card data-category="employment">
             <div>
+              <div class="service-card-media">
+                <img src="./images/service-card-employment.webp" alt="Professional briefcase for employment and career services" width="640" height="420" loading="lazy">
+              </div>
               <div class="service-card-icon">
                 <span class="material-symbols-outlined">work</span>
               </div>
@@ -289,6 +333,9 @@
           <!-- 7. Transport Services -->
           <div class="service-card-3d reveal delay-2" data-tilt data-service-card data-category="transport">
             <div>
+              <div class="service-card-media">
+                <img src="./images/service-card-transport.webp" alt="City car on smart transport infrastructure" width="640" height="420" loading="lazy">
+              </div>
               <div class="service-card-icon">
                 <span class="material-symbols-outlined">directions_car</span>
               </div>
@@ -301,6 +348,9 @@
           <!-- 8. Welfare Services -->
           <div class="service-card-3d reveal delay-3" data-tilt data-service-card data-category="welfare">
             <div>
+              <div class="service-card-media">
+                <img src="./images/service-card-welfare.webp" alt="Hands holding a heart for community welfare support" width="640" height="420" loading="lazy">
+              </div>
               <div class="service-card-icon">
                 <span class="material-symbols-outlined">volunteer_activism</span>
               </div>
@@ -479,6 +529,9 @@
         <div class="departments-grid-6">
           <!-- 1. Revenue -->
           <div class="department-card reveal">
+            <div class="dept-media">
+              <img src="./images/dept-revenue.webp" alt="Treasury safe and coins for the Department of Revenue" width="640" height="420" loading="lazy">
+            </div>
             <div class="dept-header">
               <div class="dept-icon">
                 <span class="material-symbols-outlined">account_balance_wallet</span>
@@ -492,6 +545,9 @@
 
           <!-- 2. Education -->
           <div class="department-card reveal delay-1">
+            <div class="dept-media">
+              <img src="./images/dept-education.webp" alt="Schoolhouse with flag for the Department of Education and Skills" width="640" height="420" loading="lazy">
+            </div>
             <div class="dept-header">
               <div class="dept-icon">
                 <span class="material-symbols-outlined">menu_book</span>
@@ -503,8 +559,11 @@
             <a href="services.html#education" class="btn-icon-link">Department Services <span class="material-symbols-outlined"></span></a>
           </div>
 
-          <!-- 3. Transport -->
+          <!-- 3. Transport dept -->
           <div class="department-card reveal delay-2">
+            <div class="dept-media">
+              <img src="./images/dept-transport.webp" alt="Elevated monorail for the Department of Transport and Mobility" width="640" height="420" loading="lazy">
+            </div>
             <div class="dept-header">
               <div class="dept-icon">
                 <span class="material-symbols-outlined">traffic</span>
@@ -518,6 +577,9 @@
 
           <!-- 4. Health -->
           <div class="department-card reveal">
+            <div class="dept-media">
+              <img src="./images/dept-health.webp" alt="Medical cross building for the Department of Health and Community Care" width="640" height="420" loading="lazy">
+            </div>
             <div class="dept-header">
               <div class="dept-icon">
                 <span class="material-symbols-outlined">medical_services</span>
@@ -531,6 +593,9 @@
 
           <!-- 5. Municipal Services -->
           <div class="department-card reveal delay-1">
+            <div class="dept-media">
+              <img src="./images/dept-municipal.webp" alt="City hall with clock tower for the Department of Municipal Services" width="640" height="420" loading="lazy">
+            </div>
             <div class="dept-header">
               <div class="dept-icon">
                 <span class="material-symbols-outlined">apartment</span>
@@ -544,6 +609,9 @@
 
           <!-- 6. Social Welfare -->
           <div class="department-card reveal delay-2">
+            <div class="dept-media">
+              <img src="./images/dept-welfare.webp" alt="Protective shield with heart for the Department of Social Welfare" width="640" height="420" loading="lazy">
+            </div>
             <div class="dept-header">
               <div class="dept-icon">
                 <span class="material-symbols-outlined">shield_person</span>
@@ -787,7 +855,7 @@
             </button>
             <div class="carousel-dots" data-carousel-dots></div>
             <button class="carousel-btn" data-carousel-next aria-label="Next citizen story">
-              <span class="material-symbols-outlined"></span>
+               <span class="material-symbols-outlined">arrow_forward</span>
             </button>
           </div>
         </div>
