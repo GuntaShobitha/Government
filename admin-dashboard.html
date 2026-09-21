@@ -14,8 +14,19 @@
   <!-- Primary Stylesheet -->
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/animations.css">
+  <link rel="stylesheet" href="./css/preloader.css">
 </head>
 <body class="dashboard-page admin-page">
+
+<!-- Page Preloader (site-wide) -->
+<div class="page-preloader" id="page-preloader" aria-hidden="true">
+  <img src="./images/logo-dark.webp" alt="STACKLY" class="preloader-logo">
+  <div class="preloader-ring" aria-hidden="true"></div>
+  <div class="preloader-progress" aria-hidden="true">
+    <div class="preloader-progress-bar"></div>
+  </div>
+  <p class="preloader-text"><span>Loading</span></p>
+</div>
 
   <div class="dashboard-layout">
     <!-- Mobile Sidebar Overlay -->
@@ -24,7 +35,7 @@
     <!-- Admin Sidebar Navigation -->
     <aside class="dashboard-sidebar" data-dashboard-sidebar aria-label="Administrator Sidebar Navigation">
       <div class="sidebar-brand-wrap">
-        <a href="index.html" class="nav-logo">
+        <a  href="#overview" data-dash-nav="overview" class="nav-logo" aria-label="Back to Overview">
           <img src="./images/logo-dark.webp" alt="STACKLY Logo" class="nav-logo-img">
         </a>
       </div>
@@ -99,9 +110,12 @@
       <!-- Top Bar -->
       <header class="dashboard-topbar">
         <div style="display: flex; align-items: center; gap: 1rem;">
-          <button class="menu-toggle" data-dashboard-menu aria-label="Toggle sidebar menu">
-            <span class="material-symbols-outlined">menu</span>
-          </button>
+          <div class="toggle-group">
+            <button class="menu-toggle" data-dashboard-menu aria-label="Toggle sidebar menu">
+              <span class="material-symbols-outlined">menu</span>
+            </button>
+            <h2 class="topbar-page-title" data-topbar-heading>Page</h2>
+          </div>
           
         </div>
 
@@ -132,6 +146,7 @@
              =================================================================== -->
         <div class="dashboard-pane is-active-section" data-dash-section="overview">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Overview"></span>
             <p class="eyebrow">Government Administration Control</p>
             <h1 class="display-title" style="font-size: clamp(2rem, 3.2vw, 2.75rem);">Executive <em>Command Center</em></h1>
             <p style="color: var(--primary-70); margin-top: 0.25rem;">Live civic metrics across all active municipal jurisdictions and agencies.</p>
@@ -296,6 +311,59 @@
               </table>
             </div>
           </div>
+
+          <!-- Extra: Department SLA Performance -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Bureau Health</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Department SLA Performance</h2>
+              </div>
+              <span class="status-badge status-approved"><span class="material-symbols-outlined">trending_up</span> +2.1% vs Last Week</span>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Vital Records &amp; Certificates</strong><span>99.1% SLA</span></div>
+                <div class="progress-track"><div class="progress-fill w-99"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Revenue &amp; Treasury</strong><span>98.4% SLA</span></div>
+                <div class="progress-track"><div class="progress-fill w-98"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Transport &amp; Infrastructure</strong><span>96.8% SLA</span></div>
+                <div class="progress-track"><div class="progress-fill w-97"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Health &amp; Social Care</strong><span>95.2% SLA</span></div>
+                <div class="progress-track"><div class="progress-fill w-95"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra: Inter-Agency Alerts -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Ops Bulletins</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Inter-Agency Alerts</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">cloud_sync</span>National Registry Sync</span><span class="info-value">Completed &middot; 14 Sep, 23:45</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">security</span>Zero-Trust Key Rotation</span><span class="info-value">Scheduled 20 Sep, 02:00</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">warning</span>Licensing Desk Backlog</span><span class="info-value">18 filings &middot; Over 48h</span></div>
+            </div>
+          </div>
+
+          <!-- Extra: Platform Metrics -->
+          <div class="stat-mini-grid">
+            <div class="stat-mini"><small>Gateway Uptime</small><strong>99.98%</strong></div>
+            <div class="stat-mini"><small>Records Synced Today</small><strong>14,892</strong></div>
+            <div class="stat-mini"><small>Mean Sign-Off Time</small><strong>3.2 h</strong></div>
+            <div class="stat-mini"><small>SLA Breaches (7d)</small><strong>4</strong></div>
+          </div>
+        
         </div>
 
         <!-- ===================================================================
@@ -303,6 +371,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="citizens" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Citizens"></span>
             <p class="eyebrow">Public Registry Management</p>
             <h1 class="section-title">Registered <em>Citizens Directory</em></h1>
             <p style="color: var(--primary-70);">52,480 verified citizen profiles enrolled in the national biometric identity ledger.</p>
@@ -358,6 +427,54 @@
               </table>
             </div>
           </div>
+
+          <!-- Extra: Recent Registrations -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Onboarding Feed</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Recent Registrations</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">person_add</span>Nadia Rahman &middot; STK-8841-2207</span><span class="info-value">Today &middot; 09:26 AM</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">person_add</span>Diego Fernandes &middot; STK-8840-8815</span><span class="info-value">Yesterday &middot; 16:48 PM</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">person_add</span>Priya Nair &middot; STK-8840-3302</span><span class="info-value">Yesterday &middot; 10:11 AM</span></div>
+            </div>
+          </div>
+
+          <!-- Extra: Registry Composition -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Verification Mix</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Registry Composition</h2>
+              </div>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Tier-4 Biometric Verified</strong><span>78%</span></div>
+                <div class="progress-track"><div class="progress-fill w-78"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Tier-3 Credential Holders</strong><span>19%</span></div>
+                <div class="progress-track"><div class="progress-fill w-19"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Pending Verification</strong><span>3%</span></div>
+                <div class="progress-track"><div class="progress-fill w-3"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra: Registry Metrics -->
+          <div class="stat-mini-grid">
+            <div class="stat-mini"><small>New This Week</small><strong>612</strong></div>
+            <div class="stat-mini"><small>Suspended Profiles</small><strong>38</strong></div>
+            <div class="stat-mini"><small>Duplicate Flags</small><strong>11</strong></div>
+            <div class="stat-mini"><small>Data Completeness</small><strong>96.4%</strong></div>
+          </div>
+        
         </div>
 
         <!-- ===================================================================
@@ -365,6 +482,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="departments" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Departments"></span>
             <p class="eyebrow">Agencies &amp; Bureaus</p>
             <h1 class="section-title">Government <em>Departments Directory</em></h1>
             <p style="color: var(--primary-70);">Operational health and SLA fulfillment across all 28 municipal desks.</p>
@@ -396,6 +514,71 @@
               <p>Active Staff: 184 · Weekly Caseload: 1,840 filings · Mean Resolution Time: 3.4 hours</p>
             </div>
           </div>
+
+          <!-- Extra: More Departments -->
+          <div class="departments-grid-6">
+            <div class="department-card">
+              <div class="dept-header">
+                <div class="dept-icon"><span class="material-symbols-outlined">school</span></div>
+                <span class="status-badge status-approved">97.6% SLA</span>
+              </div>
+              <h3>Education &amp; Skills</h3>
+              <p>Active Staff: 210 &middot; Weekly Caseload: 1,320 filings &middot; Mean Resolution Time: 4.2 hours</p>
+            </div>
+            <div class="department-card">
+              <div class="dept-header">
+                <div class="dept-icon"><span class="material-symbols-outlined">health_and_safety</span></div>
+                <span class="status-badge status-approved">95.2% SLA</span>
+              </div>
+              <h3>Health &amp; Social Care</h3>
+              <p>Active Staff: 176 &middot; Weekly Caseload: 2,015 filings &middot; Mean Resolution Time: 5.1 hours</p>
+            </div>
+            <div class="department-card">
+              <div class="dept-header">
+                <div class="dept-icon"><span class="material-symbols-outlined">volunteer_activism</span></div>
+                <span class="status-badge status-review">92.9% SLA</span>
+              </div>
+              <h3>Social Welfare</h3>
+              <p>Active Staff: 132 &middot; Weekly Caseload: 1,780 filings &middot; Mean Resolution Time: 6.8 hours</p>
+            </div>
+          </div>
+
+          <!-- Extra: Workload Distribution -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Capacity Planning</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Weekly Workload Distribution</h2>
+              </div>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Vital Records &mdash; 3,450 filings</strong><span>Busiest</span></div>
+                <div class="progress-track"><div class="progress-fill w-100"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Revenue &amp; Treasury &mdash; 2,190 filings</strong><span>64%</span></div>
+                <div class="progress-track"><div class="progress-fill w-64"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Social Welfare &mdash; 1,780 filings</strong><span>52%</span></div>
+                <div class="progress-track"><div class="progress-fill w-52"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Transport &mdash; 1,840 filings</strong><span>53%</span></div>
+                <div class="progress-track"><div class="progress-fill w-53"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra: Staffing Snapshot -->
+          <div class="stat-mini-grid">
+            <div class="stat-mini"><small>Total Active Staff</small><strong>1,286</strong></div>
+            <div class="stat-mini"><small>Officers On Shift</small><strong>412</strong></div>
+            <div class="stat-mini"><small>Open Positions</small><strong>23</strong></div>
+            <div class="stat-mini"><small>Training Compliance</small><strong>94%</strong></div>
+          </div>
+        
         </div>
 
         <!-- ===================================================================
@@ -403,6 +586,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="services" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Services"></span>
             <p class="eyebrow">Master Service Catalog</p>
             <h1 class="section-title">Public <em>Services Catalog</em></h1>
             <p style="color: var(--primary-70);">500+ operational digital services with live automated routing status.</p>
@@ -453,6 +637,39 @@
               </table>
             </div>
           </div>
+
+          <!-- Extra: Service Performance -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Delivery Health</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Service Performance Overview</h2>
+              </div>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Instant Services (&lt; 60s)</strong><span>38% of catalog</span></div>
+                <div class="progress-track"><div class="progress-fill w-38"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Same-Day Services</strong><span>27% of catalog</span></div>
+                <div class="progress-track"><div class="progress-fill w-27"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Multi-Day Services</strong><span>35% of catalog</span></div>
+                <div class="progress-track"><div class="progress-fill w-35"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra: Catalog Metrics -->
+          <div class="stat-mini-grid">
+            <div class="stat-mini"><small>Catalog Size</small><strong>512 services</strong></div>
+            <div class="stat-mini"><small>Most Used</small><strong>ID Renewal</strong></div>
+            <div class="stat-mini"><small>Auto-Routing Rate</small><strong>91%</strong></div>
+            <div class="stat-mini"><small>Disabled This Month</small><strong>2</strong></div>
+          </div>
+        
         </div>
 
         <!-- ===================================================================
@@ -460,6 +677,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="applications" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Applications"></span>
             <p class="eyebrow">Central Queue</p>
             <h1 class="section-title">All Citizen <em>Applications</em></h1>
             <p style="color: var(--primary-70);">Live audit view of all filings across municipal agencies.</p>
@@ -510,6 +728,46 @@
               </table>
             </div>
           </div>
+
+          <!-- Extra: Queue Throughput -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Central Queue</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Queue Throughput</h2>
+              </div>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Processed Today</strong><span>1,240 filings</span></div>
+                <div class="progress-track"><div class="progress-fill w-82"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>In Active Review</strong><span>214 filings</span></div>
+                <div class="progress-track"><div class="progress-fill w-14"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Waiting &gt; 48 Hours</strong><span>18 filings</span></div>
+                <div class="progress-track"><div class="progress-fill w-4"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra: Escalation Desk -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Priority Handling</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Escalation Desk</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">priority_high</span>SLA Breach Warnings</span><span class="info-value">4 filings flagged</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">gavel</span>Judicial Holds</span><span class="info-value">2 filings sealed</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">restore</span>Reopened Cases</span><span class="info-value">9 this week</span></div>
+            </div>
+          </div>
+        
         </div>
 
         <!-- ===================================================================
@@ -517,6 +775,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="documents" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Documents"></span>
             <p class="eyebrow">Cryptographic Vault</p>
             <h1 class="section-title">Issued Public <em>Documents Registry</em></h1>
             <p style="color: var(--primary-70);">Archive of issued digital credentials with immutable hash validation.</p>
@@ -560,10 +819,66 @@
                     <td>28 Aug 2026 · 09:40</td>
                     <td><span class="status-badge status-approved">Valid Hash</span></td>
                   </tr>
+                  <tr>
+                    <td><code>0x55e09...2177</code></td>
+                    <td>Senior Transport Card</td>
+                    <td>Citizen Alex Mercer</td>
+                    <td>Transport Desk (Automated)</td>
+                    <td>28 Jul 2026 · 12:10</td>
+                    <td><span class="status-badge status-approved">Valid Hash</span></td>
+                  </tr>
+                  <tr>
+                    <td><code>0x62b84...8033</code></td>
+                    <td>Electoral Enrollment Slip</td>
+                    <td>Priya Nair</td>
+                    <td>Election Commission Gateway</td>
+                    <td>21 Jul 2026 · 16:55</td>
+                    <td><span class="status-badge status-approved">Valid Hash</span></td>
+                  </tr>
                 </tbody>
               </table>
             </div>
           </div>
+
+          <!-- Extra: Issuance Stats -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Vault Analytics</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Issuance Statistics</h2>
+              </div>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Issued This Month</strong><span>12,480 documents</span></div>
+                <div class="progress-track"><div class="progress-fill w-88"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Hash-Verified On First Scan</strong><span>99.6%</span></div>
+                <div class="progress-track"><div class="progress-fill w-99"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Revoked / Reissued</strong><span>42 documents</span></div>
+                <div class="progress-track"><div class="progress-fill w-6"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra: Archive Policy -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Compliance</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Archive &amp; Retention Policy</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">inventory_2</span>Cold Archive Tier</span><span class="info-value">3 regions &middot; WORM storage</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">timer</span>Minimum Retention</span><span class="info-value">7 years &middot; statutory</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">fingerprint</span>Access Audit Coverage</span><span class="info-value">100% of vault reads</span></div>
+            </div>
+          </div>
+        
         </div>
 
         <!-- ===================================================================
@@ -571,6 +886,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="approvals" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Approvals"></span>
             <p class="eyebrow">Officer Sign-Off Queue</p>
             <h1 class="section-title">Pending <em>Approvals Desk</em></h1>
             <p style="color: var(--primary-70);">Review filings requiring executive sign-off and digital governance signature.</p>
@@ -623,6 +939,46 @@
               </table>
             </div>
           </div>
+
+          <!-- Extra: Turnaround Metrics -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Desk Efficiency</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Approval Turnaround</h2>
+              </div>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Same-Day Sign-Offs</strong><span>72%</span></div>
+                <div class="progress-track"><div class="progress-fill w-72"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Within 48 Hours</strong><span>24%</span></div>
+                <div class="progress-track"><div class="progress-fill w-24"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Escalated &gt; 48 Hours</strong><span>4%</span></div>
+                <div class="progress-track"><div class="progress-fill w-4"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra: Governance Reminders -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Policy</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Governance Reminders</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">rule</span>Multi-Party Rule</span><span class="info-value">Land title &amp; zoning need 2 signatures</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">shield_lock</span>Session Timeout</span><span class="info-value">Sign-off session expires in 15 min</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">edit_note</span>Reason Codes</span><span class="info-value">Mandatory on every hold action</span></div>
+            </div>
+          </div>
+        
         </div>
 
         <!-- ===================================================================
@@ -630,6 +986,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="reports" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Reports"></span>
             <p class="eyebrow">Statutory Dispatches</p>
             <h1 class="section-title">Government <em>Reports &amp; Audits</em></h1>
             <p style="color: var(--primary-70);">Downloadable municipal audits, budget transparency sheets, and SLA audits.</p>
@@ -655,6 +1012,44 @@
               <button class="btn btn-primary" onclick="window.location.href='./404.html'" style="font-size: 0.8125rem;"><span class="material-symbols-outlined">download</span> Download PDF</button>
             </div>
           </div>
+
+          <!-- Extra: More Reports -->
+          <div class="departments-grid-6">
+            <div class="department-card">
+              <div class="dept-header"><div class="dept-icon"><span class="material-symbols-outlined">badge</span></div><span class="dept-number">Q3-2026</span></div>
+              <h3>Identity Bureau Audit</h3>
+              <p>Biometric enrollment integrity, false-match rates, and key ceremony compliance review.</p>
+              <button class="btn btn-primary" onclick="window.location.href='./404.html'" style="font-size: 0.8125rem;"><span class="material-symbols-outlined">download</span> Download PDF</button>
+            </div>
+            <div class="department-card">
+              <div class="dept-header"><div class="dept-icon"><span class="material-symbols-outlined">how_to_vote</span></div><span class="dept-number">H2-2026</span></div>
+              <h3>Electoral Roll Certification</h3>
+              <p>Voter registry accuracy statement with deduplication and residency verification results.</p>
+              <button class="btn btn-primary" onclick="window.location.href='./404.html'" style="font-size: 0.8125rem;"><span class="material-symbols-outlined">download</span> Download PDF</button>
+            </div>
+            <div class="department-card">
+              <div class="dept-header"><div class="dept-icon"><span class="material-symbols-outlined">account_balance</span></div><span class="dept-number">FY-2026</span></div>
+              <h3>Infrastructure Bond Report</h3>
+              <p>Capital works expenditure tracking against approved municipal bond allocations.</p>
+              <button class="btn btn-primary" onclick="window.location.href='./404.html'" style="font-size: 0.8125rem;"><span class="material-symbols-outlined">download</span> Download PDF</button>
+            </div>
+          </div>
+
+          <!-- Extra: Publication Schedule -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Transparency Portal</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Publication Schedule</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">event_repeat</span>Monthly Service Report</span><span class="info-value">Due 05 Oct 2026</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">event_repeat</span>Treasury Reconciliation</span><span class="info-value">Due 12 Oct 2026</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">event_repeat</span>Quarterly SLA Audit</span><span class="info-value">Due 15 Oct 2026</span></div>
+            </div>
+          </div>
+        
         </div>
 
         <!-- ===================================================================
@@ -662,6 +1057,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="analytics" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Analytics"></span>
             <p class="eyebrow">Civic Telemetry</p>
             <h1 class="section-title">Platform <em>Analytics</em></h1>
             <p style="color: var(--primary-70);">Real-time monitoring of civic transactions, API throughput, and infrastructure load.</p>
@@ -705,6 +1101,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="notifications" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Notifications"></span>
             <p class="eyebrow">System Alerts</p>
             <h1 class="section-title">Administrative <em>Alerts &amp; Dispatch</em></h1>
             <p style="color: var(--primary-70);">Security events, inter-agency notices, and emergency civic bulletins.</p>
@@ -738,6 +1135,25 @@
                   <small style="color: var(--primary-70);">12 Sep 2026 · 08:00 AM</small>
                 </div>
               </div>
+
+
+              <div style="padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--primary-10); background-color: #FFFFFF; display: flex; align-items: flex-start; gap: 1rem;">
+                <span class="material-symbols-outlined" style="color: var(--primary); font-size: 28px;">priority_high</span>
+                <div>
+                  <strong style="color: var(--primary); display: block;">SLA Breach Warning: Commercial Licensing</strong>
+                  <p style="color: var(--primary-70); font-size: 0.9375rem; margin: 0.25rem 0;">18 filings have exceeded the 48-hour processing window. Escalation notices were dispatched to the bureau chief on duty.</p>
+                  <small style="color: var(--primary-70);">12 Sep 2026 &middot; 07:30 AM</small>
+                </div>
+              </div>
+
+              <div style="padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--primary-10); background-color: #FFFFFF; display: flex; align-items: flex-start; gap: 1rem;">
+                <span class="material-symbols-outlined" style="color: var(--primary); font-size: 28px;">admin_panel_settings</span>
+                <div>
+                  <strong style="color: var(--primary); display: block;">New Officer Onboarded: Identity Bureau</strong>
+                  <p style="color: var(--primary-70); font-size: 0.9375rem; margin: 0.25rem 0;">Officer R. Whitfield was granted Tier-2 review rights. Two-party approval is enforced for the first 30 days.</p>
+                  <small style="color: var(--primary-70);">09 Sep 2026 &middot; 13:20 PM</small>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -747,6 +1163,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="settings" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Settings"></span>
             <p class="eyebrow">Administrative Governance</p>
             <h1 class="section-title">System <em>Governance &amp; Policies</em></h1>
             <p style="color: var(--primary-70);">Configure security parameters, audit thresholds, and departmental access rights.</p>
@@ -779,6 +1196,46 @@
               </div>
             </div>
           </div>
+
+          <!-- Extra: Access Control Matrix -->
+          <div class="table-card" style="max-width: 780px;">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Roles &amp; Rights</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Access Control Matrix</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">shield_person</span>System Administrator</span><span class="info-value">Full control &middot; 2 holders</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">supervisor_account</span>Bureau Chief</span><span class="info-value">Approvals + reports &middot; 28 holders</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">person</span>Review Officer</span><span class="info-value">Queue review only &middot; 412 holders</span></div>
+            </div>
+          </div>
+
+          <!-- Extra: Audit Thresholds -->
+          <div class="table-card" style="max-width: 780px;">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Automation Rules</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Audit Thresholds</h2>
+              </div>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Failed Sign-In Lockout</strong><span>5 attempts</span></div>
+                <div class="progress-track"><div class="progress-fill w-50"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Unusual Export Volume Alert</strong><span>500 docs / hour</span></div>
+                <div class="progress-track"><div class="progress-fill w-75"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Bulk Approval Cap</strong><span>100 / officer / day</span></div>
+                <div class="progress-track"><div class="progress-fill w-65"></div></div>
+              </div>
+            </div>
+          </div>
+        
         </div>
 
       </main>
@@ -788,5 +1245,6 @@
   <!-- Dashboard Scripts -->
   <script src="./js/dashboard.js" defer></script>
   <script src="./js/advanced-animations.js" defer></script>
+  <script src="./js/preloader.js" defer></script>
 </body>
 </html>

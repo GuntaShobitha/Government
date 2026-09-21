@@ -502,7 +502,6 @@ html.js-anim .stat-box.is-in::after {
 }
 
 html.js-anim .stat-box.is-in .stat-value {
-  display: inline-block;
   animation: aaTypeLock 0.5s var(--aa-lock) calc(var(--i, 0) * 0.12s) backwards;
 }
 

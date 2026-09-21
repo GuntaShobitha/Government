@@ -100,6 +100,16 @@
         }
       });
 
+      // Update the topbar heading to reflect the active page/section.
+      // Every pane carries a hidden <span data-topbar-title="..."> with its
+      // human-readable page name; hidden panes are still queryable.
+      const heading = document.querySelector('[data-topbar-heading]');
+      if (heading) {
+        const activePane = document.querySelector('[data-dash-section="' + targetTabId + '"]');
+        const titleSpan = activePane ? activePane.querySelector('[data-topbar-title]') : null;
+        heading.textContent = titleSpan ? titleSpan.getAttribute('data-topbar-title') : targetTabId;
+      }
+
       // Close mobile sidebar if open
       const sidebar = document.querySelector('[data-dashboard-sidebar]');
       const activeOverlay = document.querySelector('[data-sidebar-overlay]');

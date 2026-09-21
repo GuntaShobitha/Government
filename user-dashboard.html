@@ -14,8 +14,19 @@
   <!-- Primary Stylesheet -->
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/animations.css">
+  <link rel="stylesheet" href="./css/preloader.css">
 </head>
 <body class="dashboard-page user-page">
+
+<!-- Page Preloader (site-wide) -->
+<div class="page-preloader" id="page-preloader" aria-hidden="true">
+  <img src="./images/logo-dark.webp" alt="STACKLY" class="preloader-logo">
+  <div class="preloader-ring" aria-hidden="true"></div>
+  <div class="preloader-progress" aria-hidden="true">
+    <div class="preloader-progress-bar"></div>
+  </div>
+  <p class="preloader-text"><span>Loading</span></p>
+</div>
 
   <div class="dashboard-layout">
     <!-- Sidebar Overlay for Mobile -->
@@ -24,7 +35,7 @@
     <!-- Sidebar Navigation -->
     <aside class="dashboard-sidebar" data-dashboard-sidebar aria-label="Citizen Sidebar Navigation">
       <div class="sidebar-brand-wrap">
-        <a href="index.html" class="nav-logo">
+        <a  href="#overview" data-dash-nav="overview" class="nav-logo" aria-label="Back to Overview">
           <img src="./images/logo-dark.webp" alt="STACKLY Logo" class="nav-logo-img">
         </a>
       </div>
@@ -87,9 +98,12 @@
       <!-- Top Bar -->
       <header class="dashboard-topbar">
         <div style="display: flex; align-items: center; gap: 1rem;">
-          <button class="menu-toggle" data-dashboard-menu aria-label="Toggle sidebar menu">
-            <span class="material-symbols-outlined">menu</span>
-          </button>
+          <div class="toggle-group">
+            <button class="menu-toggle" data-dashboard-menu aria-label="Toggle sidebar menu">
+              <span class="material-symbols-outlined">menu</span>
+            </button>
+            <h2 class="topbar-page-title" data-topbar-heading>Page</h2>
+          </div>
           
         </div>
 
@@ -120,6 +134,7 @@
              =================================================================== -->
         <div class="dashboard-pane is-active-section" data-dash-section="overview">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Overview"></span>
             <p class="eyebrow">Citizen Portal Overview</p>
             <h1 class="display-title" style="font-size: clamp(2rem, 3.2vw, 2.75rem);">Welcome back, <em data-user-name>Citizen Alex</em></h1>
             <p style="color: var(--primary-70); margin-top: 0.25rem;">Here is the active status of your public services, credentials, and pending filings.</p>
@@ -229,6 +244,59 @@
               </table>
             </div>
           </div>
+
+          <!-- Extra: Application Progress -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Live Milestones</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Application Progress</h2>
+              </div>
+              <span class="status-badge status-review"><span class="material-symbols-outlined">schedule</span> 1 In Review</span>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>STK-2026-9812 &middot; Certified Birth Certificate</strong><span>60%</span></div>
+                <div class="progress-track"><div class="progress-fill w-60"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>STK-2026-8741 &middot; Municipal Business Permit</strong><span>100%</span></div>
+                <div class="progress-track"><div class="progress-fill w-100"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>STK-2026-7650 &middot; Property Tax Clearance</strong><span>100%</span></div>
+                <div class="progress-track"><div class="progress-fill w-100"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>STK-2026-6519 &middot; Parking Exemption</strong><span>25%</span></div>
+                <div class="progress-track"><div class="progress-fill w-25"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra: Notices & Deadlines -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Important Dates</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Civic Notices &amp; Deadlines</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">event</span>Property Tax Assessment Window</span><span class="info-value">Open until 30 Nov 2026</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">event_available</span>Biometric Re-verification</span><span class="info-value">Scheduled 03 Oct 2026</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">local_shipping</span>Permit Document Collection</span><span class="info-value">Ready at Civic Center #4</span></div>
+            </div>
+          </div>
+
+          <!-- Extra: Quick Service Metrics -->
+          <div class="stat-mini-grid">
+            <div class="stat-mini"><small>Govt. Response Rate</small><strong>98.2%</strong></div>
+            <div class="stat-mini"><small>Avg. Processing Time</small><strong>1.4 days</strong></div>
+            <div class="stat-mini"><small>e-Documents Stored</small><strong>6 files</strong></div>
+            <div class="stat-mini"><small>Portal Satisfaction</small><strong>4.8 / 5</strong></div>
+          </div>
+        
         </div>
 
         <!-- ===================================================================
@@ -236,6 +304,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="applications" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="My Applications"></span>
             <p class="eyebrow">Filings &amp; Petitions</p>
             <h1 class="section-title">My <em>Applications</em></h1>
             <p style="color: var(--primary-70);">Filter and manage all submitted civic service requests.</p>
@@ -243,9 +312,9 @@
 
           <div class="table-card">
             <div class="filter-group" style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
-              <button class="btn btn-outline is-active" data-status-filter="all" data-target-table="#apps-full-table">All (4)</button>
-              <button class="btn btn-outline" data-status-filter="review" data-target-table="#apps-full-table">Under Review (1)</button>
-              <button class="btn btn-outline" data-status-filter="approved" data-target-table="#apps-full-table">Approved (2)</button>
+              <button class="btn btn-outline is-active" data-status-filter="all" data-target-table="#apps-full-table">All (6)</button>
+              <button class="btn btn-outline" data-status-filter="review" data-target-table="#apps-full-table">Under Review (2)</button>
+              <button class="btn btn-outline" data-status-filter="approved" data-target-table="#apps-full-table">Approved (3)</button>
               <button class="btn btn-outline" data-status-filter="submitted" data-target-table="#apps-full-table">Submitted (1)</button>
             </div>
 
@@ -294,10 +363,66 @@
                     <td><span class="status-badge status-submitted"><span class="material-symbols-outlined">hourglass_empty</span> Submitted</span></td>
                     <td><button class="btn btn-outline" style="padding: 0.375rem 0.75rem; font-size: 0.75rem;" onclick="document.querySelector('[data-dash-nav=\'status\']').click();">View Milestones</button></td>
                   </tr>
+                  <tr>
+                    <td><strong>STK-2026-5402</strong></td>
+                    <td>Senior Citizen Transport Card</td>
+                    <td>Transport &amp; Mobility</td>
+                    <td>28 Jul 2026</td>
+                    <td><span class="status-badge status-approved"><span class="material-symbols-outlined">verified</span> Approved</span></td>
+                    <td><button class="btn btn-primary" style="padding: 0.375rem 0.75rem; font-size: 0.75rem;" onclick="document.querySelector('[data-dash-nav=\'documents\']').click();">Download PDF</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>STK-2026-4318</strong></td>
+                    <td>Water &amp; Sewerage New Connection</td>
+                    <td>Public Utilities Desk</td>
+                    <td>15 Jul 2026</td>
+                    <td><span class="status-badge status-review"><span class="material-symbols-outlined">schedule</span> Under Review</span></td>
+                    <td><button class="btn btn-outline" style="padding: 0.375rem 0.75rem; font-size: 0.75rem;" onclick="document.querySelector('[data-dash-nav=\'status\']').click();">View Milestones</button></td>
+                  </tr>
                 </tbody>
               </table>
             </div>
           </div>
+
+          <!-- Extra: Status Summary -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Filing Health</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Status Summary</h2>
+              </div>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Approved &amp; Stamped</strong><span>3 of 6</span></div>
+                <div class="progress-track"><div class="progress-fill w-50"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Under Officer Review</strong><span>2 of 6</span></div>
+                <div class="progress-track"><div class="progress-fill w-33"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Submitted / In Queue</strong><span>1 of 6</span></div>
+                <div class="progress-track"><div class="progress-fill w-17"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra: Application Support -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Need Help?</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Application Support Channels</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">call</span>Civic Helpdesk (Toll Free)</span><span class="info-value">1-800-555-0199 &middot; 24/7</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">chat</span>Live Officer Chat</span><span class="info-value">Mon&ndash;Fri &middot; 08:00&ndash;18:00</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">mail</span>Email Desk</span><span class="info-value">support@stackly.gov</span></div>
+            </div>
+          </div>
+        
         </div>
 
         <!-- ===================================================================
@@ -305,6 +430,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="services" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Government Services"></span>
             <p class="eyebrow">Self-Service Directory</p>
             <h1 class="section-title">Government <em>Services Directory</em></h1>
             <p style="color: var(--primary-70);">Initiate immediate online service requests with verified citizen auto-fill.</p>
@@ -336,6 +462,58 @@
               <button onclick="window.location.href='./404.html'" class="btn btn-primary" style="width: 100%; font-size: 0.8125rem;">Register Business</button>
             </div>
           </div>
+
+          <!-- Extra: More Services -->
+          <div class="services-grid-8">
+            <div class="service-card-3d">
+              <div class="service-card-icon"><span class="material-symbols-outlined">water_drop</span></div>
+              <h3>Water &amp; Sewerage</h3>
+              <p>New connections, billing queries, and supply complaint registration.</p>
+              <button onclick="window.location.href='./404.html'" class="btn btn-primary" style="width: 100%; font-size: 0.8125rem;">Request Service</button>
+            </div>
+            <div class="service-card-3d">
+              <div class="service-card-icon"><span class="material-symbols-outlined">how_to_vote</span></div>
+              <h3>Electoral Registration</h3>
+              <p>Enroll, update address, or locate your assigned polling station.</p>
+              <button onclick="window.location.href='./404.html'" class="btn btn-primary" style="width: 100%; font-size: 0.8125rem;">Update Roll</button>
+            </div>
+            <div class="service-card-3d">
+              <div class="service-card-icon"><span class="material-symbols-outlined">home_work</span></div>
+              <h3>Housing Schemes</h3>
+              <p>Apply for public housing lotteries and urban development grants.</p>
+              <button onclick="window.location.href='./404.html'" class="btn btn-primary" style="width: 100%; font-size: 0.8125rem;">View Schemes</button>
+            </div>
+            <div class="service-card-3d">
+              <div class="service-card-icon"><span class="material-symbols-outlined">directions_car</span></div>
+              <h3>Vehicle Registration</h3>
+              <p>Register vehicles, transfer ownership, and renew road permits.</p>
+              <button onclick="window.location.href='./404.html'" class="btn btn-primary" style="width: 100%; font-size: 0.8125rem;">Start Registration</button>
+            </div>
+          </div>
+
+          <!-- Extra: Service Assistance -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Guided Support</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Service Assistance</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">support_agent</span>Guided Application Help</span><span class="info-value">Officer callback within 2 hours</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">map</span>Nearest Service Center</span><span class="info-value">Civic Center #4 &middot; 1.2 km</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">schedule</span>Counter Hours</span><span class="info-value">Mon&ndash;Sat &middot; 09:00&ndash;17:00</span></div>
+            </div>
+          </div>
+
+          <!-- Extra: Directory Metrics -->
+          <div class="stat-mini-grid">
+            <div class="stat-mini"><small>Services Online</small><strong>500+</strong></div>
+            <div class="stat-mini"><small>Auto-Approved</small><strong>38%</strong></div>
+            <div class="stat-mini"><small>Avg. Approval</small><strong>26 hours</strong></div>
+            <div class="stat-mini"><small>Uptime</small><strong>99.9%</strong></div>
+          </div>
+        
         </div>
 
         <!-- ===================================================================
@@ -343,6 +521,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="documents" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Documents"></span>
             <p class="eyebrow">Verified Digital Wallet</p>
             <h1 class="section-title">Citizen <em>Documents &amp; Vault</em></h1>
             <p style="color: var(--primary-70);">All officially signed credentials and cryptographic certificates.</p>
@@ -379,6 +558,50 @@
               <button class="btn btn-primary" onclick="window.location.href='./404.html'" style="font-size: 0.8125rem;"><span class="material-symbols-outlined">download</span> Download Receipt</button>
             </div>
           </div>
+
+          <!-- Extra: Upload New Document -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Secure Upload</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Add a New Document</h2>
+              </div>
+            </div>
+            <p style="color: var(--primary-70); max-width: 640px;">Upload supporting files (PDF, JPG, PNG &mdash; max 10&nbsp;MB). Every upload is encrypted, hash-sealed, and automatically attached to your related applications.</p>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.25rem;">
+              <button class="btn btn-primary" onclick="window.location.href='./404.html'"><span class="material-symbols-outlined">upload_file</span> Upload Document</button>
+              <button class="btn btn-outline" onclick="window.location.href='./404.html'"><span class="material-symbols-outlined">scanner</span> Scan with Phone</button>
+            </div>
+          </div>
+
+          <!-- Extra: Vault Usage -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Storage &amp; Verification</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Vault Overview</h2>
+              </div>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Cryptographic Verification Coverage</strong><span>6 of 6 sealed</span></div>
+                <div class="progress-track"><div class="progress-fill w-100"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Vault Storage Used</strong><span>42%</span></div>
+                <div class="progress-track"><div class="progress-fill w-42"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra: Sharing Snapshot -->
+          <div class="stat-mini-grid">
+            <div class="stat-mini"><small>Shared with Depts</small><strong>2 links</strong></div>
+            <div class="stat-mini"><small>Expiring in 90 Days</small><strong>1 file</strong></div>
+            <div class="stat-mini"><small>Audit Access Logs</small><strong>Enabled</strong></div>
+            <div class="stat-mini"><small>Backup Regions</small><strong>3 zones</strong></div>
+          </div>
+        
         </div>
 
         <!-- ===================================================================
@@ -386,6 +609,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="status" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Applications Status"></span>
             <p class="eyebrow">Real-Time Milestone Tracker</p>
             <h1 class="section-title">Application <em>Progress Tracker</em></h1>
             <p style="color: var(--primary-70);">Tracking Active Filing: <strong>STK-2026-9812</strong> (Certified Birth Certificate)</p>
@@ -422,6 +646,58 @@
               </div>
             </div>
           </div>
+
+          <!-- Extra: Filing Details -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Reference Data</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Filing Details</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">tag</span>Application Reference</span><span class="info-value">STK-2026-9812</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">account_balance</span>Handling Bureau</span><span class="info-value">Vital Records Bureau</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">person</span>Assigned Officer</span><span class="info-value">Officer R. Whitfield &middot; Desk 12</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">schedule</span>Estimated Completion</span><span class="info-value">Today &middot; 17:00 PM</span></div>
+            </div>
+          </div>
+
+          <!-- Extra: Officer Notes -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">From the Review Desk</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Officer Notes</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">task_alt</span>Identity Cross-Check</span><span class="info-value">Passed &middot; 14 Sep, 09:30 AM</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">draw</span>Signature Match</span><span class="info-value">Passed &middot; 14 Sep, 10:05 AM</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">pending_actions</span>Final Sign-Off</span><span class="info-value">Awaiting supervisor</span></div>
+            </div>
+          </div>
+
+          <!-- Extra: What Happens Next -->
+          <div class="table-card">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Automation Queue</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">What Happens Next</h2>
+              </div>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Digital Signature &amp; Hash Sealing</strong><span>Queued</span></div>
+                <div class="progress-track"><div class="progress-fill w-75"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Delivery to Documents Vault</strong><span>Est. 17:00</span></div>
+                <div class="progress-track"><div class="progress-fill w-90"></div></div>
+              </div>
+            </div>
+          </div>
+        
         </div>
 
         <!-- ===================================================================
@@ -429,6 +705,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="notifications" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Notifications"></span>
             <p class="eyebrow">Official Communications</p>
             <h1 class="section-title">Citizen <em>Notifications</em></h1>
             <p style="color: var(--primary-70);">Direct messages and alerts from administrative departments.</p>
@@ -462,6 +739,34 @@
                   <small style="color: var(--primary-70);">14 Sep 2026 · 10:15 AM</small>
                 </div>
               </div>
+
+
+              <div style="padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--primary-10); background-color: #FFFFFF; display: flex; align-items: flex-start; gap: 1rem;">
+                <span class="material-symbols-outlined" style="color: var(--primary); font-size: 28px;">campaign</span>
+                <div>
+                  <strong style="color: var(--primary); display: block;">Civic Bulletin: Property Tax Window Open</strong>
+                  <p style="color: var(--primary-70); font-size: 0.9375rem; margin: 0.25rem 0;">The annual municipal property tax assessment window is open. File or dispute your valuation online until 30 Nov 2026.</p>
+                  <small style="color: var(--primary-70);">12 Sep 2026 &middot; 08:00 AM</small>
+                </div>
+              </div>
+
+              <div style="padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--primary-10); background-color: #FFFFFF; display: flex; align-items: flex-start; gap: 1rem;">
+                <span class="material-symbols-outlined" style="color: var(--primary); font-size: 28px;">event_available</span>
+                <div>
+                  <strong style="color: var(--primary); display: block;">Reminder: Biometric Re-verification</strong>
+                  <p style="color: var(--primary-70); font-size: 0.9375rem; margin: 0.25rem 0;">Your Tier-4 identity verification is due on 03 Oct 2026. Book a slot at any Civic Center kiosk to keep portal access unrestricted.</p>
+                  <small style="color: var(--primary-70);">08 Sep 2026 &middot; 09:00 AM</small>
+                </div>
+              </div>
+
+              <div style="padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--primary-10); background-color: #FFFFFF; display: flex; align-items: flex-start; gap: 1rem;">
+                <span class="material-symbols-outlined" style="color: var(--primary); font-size: 28px;">mark_email_read</span>
+                <div>
+                  <strong style="color: var(--primary); display: block;">Permit Collection Notice</strong>
+                  <p style="color: var(--primary-70); font-size: 0.9375rem; margin: 0.25rem 0;">The physical copy of your Municipal Business Permit is ready for collection at Civic Center #4, Desk 2. Bring your digital ID.</p>
+                  <small style="color: var(--primary-70);">02 Sep 2026 &middot; 15:40 PM</small>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -471,6 +776,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="profile" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Profile"></span>
             <p class="eyebrow">Personal Information</p>
             <h1 class="section-title">Citizen <em>Profile</em></h1>
             <p style="color: var(--primary-70);">Manage your verified civil contact details and official identity credentials.</p>
@@ -512,6 +818,47 @@
               <span id="profile-save-message" style="margin-left: 1rem; font-weight: 700;"></span>
             </form>
           </div>
+
+          <!-- Extra: Contact Preferences -->
+          <div class="table-card" style="max-width: 780px;">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">How We Reach You</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Contact Preferences</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">notifications_active</span>Status Change Alerts</span><span class="info-value">Email + SMS &middot; Enabled</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">campaign</span>Civic Bulletins</span><span class="info-value">Monthly digest &middot; Subscribed</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">language</span>Preferred Language</span><span class="info-value">English</span></div>
+            </div>
+          </div>
+
+          <!-- Extra: Identity Verification -->
+          <div class="table-card" style="max-width: 780px;">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Trust Level</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Identity Verification</h2>
+              </div>
+              <span class="status-badge status-approved"><span class="material-symbols-outlined">verified</span> Tier-4 Biometric</span>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Email Confirmation</strong><span>Verified</span></div>
+                <div class="progress-track"><div class="progress-fill w-100"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Phone Number Ownership</strong><span>Verified</span></div>
+                <div class="progress-track"><div class="progress-fill w-100"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-item-head"><strong>Biometric Re-verification</strong><span>Due 03 Oct 2026</span></div>
+                <div class="progress-track"><div class="progress-fill w-75"></div></div>
+              </div>
+            </div>
+          </div>
+        
         </div>
 
         <!-- ===================================================================
@@ -519,6 +866,7 @@
              =================================================================== -->
         <div class="dashboard-pane" data-dash-section="settings" style="display: none;">
           <div style="margin-bottom: 2rem;">
+            <span data-topbar-title="Settings"></span>
             <p class="eyebrow">Preferences &amp; Security</p>
             <h1 class="section-title">Portal <em>Settings</em></h1>
             <p style="color: var(--primary-70);">Security protocols, two-factor authentication, and dispatch alerts.</p>
@@ -557,6 +905,45 @@
               </div>
             </div>
           </div>
+
+          <!-- Extra: Recent Login Activity -->
+          <div class="table-card" style="max-width: 780px;">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Security Log</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Recent Login Activity</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">phone_iphone</span>Mobile &middot; Capital District</span><span class="info-value">Today &middot; 08:42 AM</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">laptop</span>Desktop &middot; Capital District</span><span class="info-value">16 Sep 2026 &middot; 19:12 PM</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">tablet</span>Tablet &middot; Harbor District</span><span class="info-value">11 Sep 2026 &middot; 11:03 AM</span></div>
+            </div>
+          </div>
+
+          <!-- Extra: Data & Privacy -->
+          <div class="table-card" style="max-width: 780px;">
+            <div class="table-head-row">
+              <div>
+                <p class="eyebrow" style="margin-bottom: 0.25rem;">Your Data</p>
+                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Data &amp; Privacy</h2>
+              </div>
+            </div>
+            <div class="info-rows">
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">download</span>Export Personal Data</span><span class="info-value">Ready within 24 hours</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">history</span>Data Retention Policy</span><span class="info-value">7-year statutory archive</span></div>
+              <div class="info-row"><span class="info-label"><span class="material-symbols-outlined">shield</span>Encryption Standard</span><span class="info-value">AES-256 &middot; Zero-trust keys</span></div>
+            </div>
+          </div>
+
+          <!-- Extra: Connected Services -->
+          <div class="stat-mini-grid" style="max-width: 780px;">
+            <div class="stat-mini"><small>Linked Devices</small><strong>3 active</strong></div>
+            <div class="stat-mini"><small>Active Sessions</small><strong>1 now</strong></div>
+            <div class="stat-mini"><small>Emergency Contact</small><strong>Set</strong></div>
+            <div class="stat-mini"><small>Recovery Email</small><strong>Verified</strong></div>
+          </div>
+        
         </div>
 
       </main>
@@ -566,5 +953,6 @@
   <!-- Dashboard Scripts -->
   <script src="./js/dashboard.js" defer></script>
   <script src="./js/advanced-animations.js" defer></script>
+  <script src="./js/preloader.js" defer></script>
 </body>
 </html>
